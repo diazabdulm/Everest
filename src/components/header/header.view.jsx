@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import LoginIcon from "@material-ui/icons/AccountCircle";
@@ -13,9 +15,10 @@ import useStyles from "./header.styles";
 
 const Header = ({ currentUser }) => {
   const classes = useStyles();
+
   return (
-    <AppBar position="fixed">
-      <Toolbar>
+    <AppBar position="fixed" className={classes.appbar}>
+      <Toolbar className={classes.toolbar}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -28,22 +31,30 @@ const Header = ({ currentUser }) => {
           <Logo />
         </div>
         {currentUser ? (
-          <IconButton
-            color="inherit"
-            aria-label="log out"
-            className={classes.icon}
-          >
-            <LogoutIcon />
-          </IconButton>
+          <Tooltip title="Log Out">
+            <IconButton
+              color="inherit"
+              aria-label="log out"
+              className={classes.icon}
+              component={Link}
+              edge="end"
+            >
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         ) : (
-          <IconButton
-            color="inherit"
-            aria-label="log in"
-            edge="end"
-            className={classes.icon}
-          >
-            <LoginIcon />
-          </IconButton>
+          <Tooltip title="Log In">
+            <IconButton
+              color="inherit"
+              aria-label="log in"
+              edge="end"
+              className={classes.icon}
+              component={Link}
+              to="/login"
+            >
+              <LoginIcon />
+            </IconButton>
+          </Tooltip>
         )}
       </Toolbar>
     </AppBar>

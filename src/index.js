@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import theme from "./utils/theme";
+import { theme } from "./utils/theme";
 
 import App from "./components/app";
 

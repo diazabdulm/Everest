@@ -1,9 +1,12 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+export const drawerWidth = 266;
+
+export const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#db4c3f"
+      main: "#db4c3f",
+      dark: "#ca2100"
     }
   },
   overrides: {
@@ -15,15 +18,7 @@ const theme = createMuiTheme({
   },
   mixins: {
     toolbar: {
-      minHeight: 38,
-      "@media (min-width:0px) and (orientation: landscape)": {
-        minHeight: 38
-      },
-      "@media (min-width:600px)": {
-        minHeight: 48
-      }
+      minHeight: 48
     }
   }
 });
-
-export default theme;
