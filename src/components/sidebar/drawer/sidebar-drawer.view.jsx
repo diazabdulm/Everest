@@ -15,7 +15,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import useStyles from "./sidebar-drawer.styles";
 
-const SidebarDrawer = () => {
+const SidebarDrawer = ({ defaultProjectsTitles, userProjectsTitles }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -23,19 +23,17 @@ const SidebarDrawer = () => {
     setOpen(!open);
   };
 
-  const directory = [
-    { id: 0, name: "Inbox", icon: <InboxIcon />, color: "#246fe0" },
-    { id: 1, name: "Today", icon: <TodayIcon />, color: "#058527" },
-    { id: 2, name: "Next 7 Days", icon: <WeekIcon />, color: "#692fc2" }
-  ];
+  console.log(defaultProjectsTitles);
 
   return (
     <div>
       <div className={classes.toolbar} />
       <List>
-        {directory.map(({ id, name, icon, color }) => (
+        {defaultProjectsTitles.map(({ id, name, icon }) => (
           <ListItem button key={id}>
-            <ListItemIcon style={{ color }}>{icon}</ListItemIcon>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
             <ListItemText primary={name} />
           </ListItem>
         ))}

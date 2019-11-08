@@ -1,1 +1,1 @@
-export { default } from "./sidebar-drawer.view";
+export { default } from "./sidebar-drawer.container";
