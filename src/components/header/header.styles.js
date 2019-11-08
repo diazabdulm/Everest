@@ -19,9 +19,6 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 912,
     width: "100%"
   },
-  icon: {
-    color: theme.palette.common.white
-  },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
