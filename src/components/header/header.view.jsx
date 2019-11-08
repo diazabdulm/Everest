@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
+import Tooltip from "@material-ui/core/Tooltip";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import LoginIcon from "@material-ui/icons/AccountCircle";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
-
-import HeaderIconButton from "./icon-button/";
 
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 
@@ -32,13 +31,23 @@ const Header = ({ currentUser }) => {
           <Logo />
         </div>
         {currentUser ? (
-          <HeaderIconButton title="Log Out">
-            <LogoutIcon />
-          </HeaderIconButton>
+          <Tooltip title="Log Out">
+            <IconButton aria-label="Log Out" edge="end" color="inherit">
+              <LogoutIcon />
+            </IconButton>
+          </Tooltip>
         ) : (
-          <HeaderIconButton title="Log In" component={Link} to="/login">
-            <LoginIcon />
-          </HeaderIconButton>
+          <Tooltip title="Log In">
+            <IconButton
+              aria-label="Log In"
+              component={Link}
+              to="/login"
+              edge="end"
+              color="inherit"
+            >
+              <LoginIcon />
+            </IconButton>
+          </Tooltip>
         )}
       </Toolbar>
     </AppBar>

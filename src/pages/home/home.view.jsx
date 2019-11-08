@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Container from "@material-ui/core/Container";
 
 import Header from "../../components/header";
@@ -6,13 +6,13 @@ import Sidebar from "../../components/sidebar";
 import TaskList from "../../components/task-list";
 
 const HomePage = () => (
-  <div>
+  <Fragment>
     <Header />
     <Container maxWidth="md">
       <Sidebar />
       <TaskList />
     </Container>
-  </div>
+  </Fragment>
 );
 
 export default HomePage;
