@@ -1,16 +1,17 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-import { drawerWidth } from "../../utils/theme";
+import drawerWidth from "../../constants/drawerWidth";
 
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    borderRight: "1px solid #f1f1f1",
+  drawer: {
     [theme.breakpoints.up("sm")]: {
-      left: "auto",
-      background: "transparent"
+      width: drawerWidth,
+      flexShrink: 0
     }
+  },
+  drawerPaper: {
+    width: drawerWidth
   }
 }));
 

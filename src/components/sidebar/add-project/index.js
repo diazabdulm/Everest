@@ -1,1 +1,1 @@
-export { default } from "./add-project.container";
+export { default } from "./add-project.view";

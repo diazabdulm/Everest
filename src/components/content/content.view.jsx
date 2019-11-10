@@ -3,9 +3,9 @@ import Typography from "@material-ui/core/Typography";
 
 import Task from "./task";
 
-import useStyles from "./task-list.styles";
+import useStyles from "./content.styles";
 
-const TaskList = ({ projectName, tasks }) => {
+const Content = ({ projectName, tasks }) => {
   const classes = useStyles();
 
   return (
@@ -23,4 +23,4 @@ const TaskList = ({ projectName, tasks }) => {
   );
 };
 
-export default TaskList;
+export default Content;
