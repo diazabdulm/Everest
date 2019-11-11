@@ -17,7 +17,7 @@ const SidebarAddProject = ({ addProject }) => {
       const id = uuid.v4();
       const linkUrl = `/projects/${encodeURIComponent(name)}`;
 
-      addProject({ name, id, linkUrl, tasks: [] });
+      addProject({ name, id, linkUrl });
     }
   };
 

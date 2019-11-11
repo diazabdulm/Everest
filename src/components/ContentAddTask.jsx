@@ -16,7 +16,7 @@ const ContentAddTask = () => {
   const classes = useStyles();
 
   return (
-    <Fab aria-label="Add Task" color="primary" className={classes.fab}>
+    <Fab aria-label="Add Task" color="secondary" className={classes.fab}>
       <AddIcon />
     </Fab>
   );

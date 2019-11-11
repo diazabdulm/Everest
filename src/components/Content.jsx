@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-import { selectProject } from "../redux/projects.module";
+import { selectIndividualProject } from "../redux/projects.module";
 
 import ContentTask from "./ContentTask";
 
@@ -35,7 +35,7 @@ const Content = ({ project: { name, tasks } }) => {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  project: selectProject(ownProps.match.params.projectName)(state)
+  project: selectIndividualProject(ownProps.match.params.projectName)(state)
 });
 
 export default connect(mapStateToProps)(Content);

@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
 import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
@@ -13,7 +14,7 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 import { toggleDrawer } from "../redux/drawer.module";
-
+import { selectProjects } from "../redux/projects.module";
 import SidebarAddProject from "./SidebarAddProject";
 
 const SidebarProjectList = ({ projects, toggleDrawer }) => {
@@ -54,8 +55,8 @@ const SidebarProjectList = ({ projects, toggleDrawer }) => {
   );
 };
 
-const mapStateToProps = ({ projects }) => ({
-  projects: projects.collection
+const mapStateToProps = createStructuredSelector({
+  projects: selectProjects
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -4,6 +4,7 @@ import logger from "redux-logger";
 
 import drawerReducer from "./drawer.module";
 import projectsReducer from "./projects.module";
+import tasksReducer from "./tasks.module";
 
 const middlewares = [];
 
@@ -13,7 +14,8 @@ if (process.env.NODE_ENV === "development") {
 
 const rootReducer = combineReducers({
   drawer: drawerReducer,
-  projects: projectsReducer
+  projects: projectsReducer,
+  tasks: tasksReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(...middlewares));

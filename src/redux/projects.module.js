@@ -2,17 +2,10 @@ import { createSelector } from "reselect";
 
 const ADD_PROJECT = "everest/projects/ADD_PROJECT";
 
-const INITIAL_STATE = {
-  collection: []
-};
-
-export default function reducer(state = INITIAL_STATE, action) {
+export default function reducer(state = [], action) {
   switch (action.type) {
     case ADD_PROJECT:
-      return {
-        ...state,
-        collection: [...state.collection, action.payload]
-      };
+      return [...state, action.payload];
     default:
       return state;
   }
@@ -23,11 +16,11 @@ export const addProject = projectData => ({
   payload: projectData
 });
 
-const selectProjects = state => state.projects.collection;
+export const selectProjects = state => state.projects;
 
-export const selectProject = name =>
+export const selectIndividualProject = name =>
   createSelector(
     [selectProjects],
-    collection =>
-      collection.find(collectionItem => collectionItem.name === name)
+    projects =>
+      projects.find(individualProject => individualProject.name === name)
   );
