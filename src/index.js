@@ -4,9 +4,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import store from "./redux/store";
+import store from "./redux/root.module";
 
-import App from "./components/app";
+import App from "./components/App";
 
 ReactDOM.render(
   <Provider store={store}>

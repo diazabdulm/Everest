@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { Link } from "react-router-dom";
 import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
@@ -12,9 +12,11 @@ import CircleIcon from "@material-ui/icons/FiberManualRecord";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import SidebarAddProject from "../add-project";
+import { toggleDrawer } from "../redux/drawer.module";
 
-const SidebarProjects = ({ projects }) => {
+import SidebarAddProject from "./SidebarAddProject";
+
+const SidebarProjectList = ({ projects, toggleDrawer }) => {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
@@ -31,12 +33,18 @@ const SidebarProjects = ({ projects }) => {
       <Divider />
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {projects.map(({ id, title }) => (
-            <ListItem button key={id}>
+          {projects.map(({ id, linkUrl, name }) => (
+            <ListItem
+              button
+              key={id}
+              component={Link}
+              to={linkUrl}
+              onClick={toggleDrawer}
+            >
               <ListItemIcon>
                 <CircleIcon />
               </ListItemIcon>
-              <ListItemText primary={title} />
+              <ListItemText primary={name} />
             </ListItem>
           ))}
           <SidebarAddProject />
@@ -50,4 +58,11 @@ const mapStateToProps = ({ projects }) => ({
   projects: projects.collection
 });
 
-export default connect(mapStateToProps)(SidebarProjects);
+const mapDispatchToProps = dispatch => ({
+  toggleDrawer: () => dispatch(toggleDrawer())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidebarProjectList);

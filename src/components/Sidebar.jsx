@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -14,11 +15,24 @@ import InboxIcon from "@material-ui/icons/InboxTwoTone";
 import CalendarTodayIcon from "@material-ui/icons/EventTwoTone";
 import DateRangeIcon from "@material-ui/icons/DateRangeTwoTone";
 
-import { toggleDrawer, selectDrawerState } from "../../redux/ducks/drawer.duck";
+import { toggleDrawer, selectDrawerState } from "../redux/drawer.module";
 
-import SidebarProjects from "./projects";
+import drawerWidth from "../common/drawerWidth";
 
-import useStyles from "./sidebar.styles";
+import SidebarProjectList from "./SidebarProjectList";
+
+const useStyles = makeStyles(theme => ({
+  toolbar: theme.mixins.toolbar,
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
+  },
+  drawerPaper: {
+    width: drawerWidth
+  }
+}));
 
 const Sidebar = ({ drawerState, toggleDrawer }) => {
   const classes = useStyles();
@@ -47,7 +61,7 @@ const Sidebar = ({ drawerState, toggleDrawer }) => {
           </ListItemIcon>
           <ListItemText primary="Next 7 Days" />
         </ListItem>
-        <SidebarProjects />
+        <SidebarProjectList />
       </List>
     </div>
   );
