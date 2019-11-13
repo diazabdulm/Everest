@@ -1,5 +1,4 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "./Header";
@@ -19,7 +18,7 @@ const App = () => {
     <div className={classes.root}>
       <Header />
       <Sidebar />
-      <Route path={`/projects/:projectName`} component={Content} />
+      <Content />
     </div>
   );
 };

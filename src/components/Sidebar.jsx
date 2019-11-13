@@ -19,8 +19,6 @@ import { toggleDrawer, selectDrawerState } from "../redux/drawer.module";
 
 import drawerWidth from "../common/drawerWidth";
 
-import SidebarProjectList from "./SidebarProjectList";
-
 const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawer: {
@@ -61,7 +59,6 @@ const Sidebar = ({ drawerState, toggleDrawer }) => {
           </ListItemIcon>
           <ListItemText primary="Next 7 Days" />
         </ListItem>
-        <SidebarProjectList />
       </List>
     </div>
   );

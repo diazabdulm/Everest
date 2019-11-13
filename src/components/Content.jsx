@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-import { selectIndividualProject } from "../redux/projects.module";
+import { selectTasks } from "../redux/tasks.module";
 
 import ContentTask from "./ContentTask";
 
@@ -17,25 +18,25 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar
 }));
 
-const Content = ({ project: { name, tasks } }) => {
+const Content = ({ tasks }) => {
   const classes = useStyles();
 
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <Typography variant="h6" gutterBottom className={classes.title}>
-        {name}
+        Inbox
       </Typography>
-      {tasks.map(({ id, name }) => (
-        <ContentTask key={id} name={name} />
+      {tasks.map(({ id, ...otherProps }) => (
+        <ContentTask key={id} taskId={id} {...otherProps} />
       ))}
       <ContentAddTask />
     </main>
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  project: selectIndividualProject(ownProps.match.params.projectName)(state)
+const mapStateToProps = createStructuredSelector({
+  tasks: selectTasks
 });
 
 export default connect(mapStateToProps)(Content);

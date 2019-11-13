@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 
-const ContentTask = ({ name }) => (
-  <ListItem dense button>
+import { removeTask } from "../redux/tasks.module";
+
+const ContentTask = ({ taskId, name, removeTask }) => (
+  <ListItem dense button disableGutters onClick={() => removeTask(taskId)}>
     <ListItemIcon>
       <Checkbox
         edge="start"
@@ -18,4 +21,11 @@ const ContentTask = ({ name }) => (
   </ListItem>
 );
 
-export default ContentTask;
+const mapDispatchToProps = dispatch => ({
+  removeTask: taskId => dispatch(removeTask(taskId))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ContentTask);
