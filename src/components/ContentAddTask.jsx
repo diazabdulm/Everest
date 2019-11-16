@@ -6,7 +6,7 @@ import Fab from "@material-ui/core/Fab";
 
 import AddIcon from "@material-ui/icons/Add";
 
-import { addTask } from "../redux/tasks.module";
+import { addTask } from "../redux/projects.module";
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ContentAddTask = ({ addTask }) => {
+const ContentAddTask = ({ addTask, projectId }) => {
   const classes = useStyles();
 
   const handleAddTask = () => {
@@ -24,7 +24,7 @@ const ContentAddTask = ({ addTask }) => {
     if (!name) return;
 
     const id = uuid.v4();
-    addTask({ name, id });
+    addTask({ id, name, projectId });
   };
 
   return (
@@ -43,7 +43,4 @@ const mapDispatchToProps = dispatch => ({
   addTask: taskData => dispatch(addTask(taskData))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ContentAddTask);
+export default connect(null, mapDispatchToProps)(ContentAddTask);

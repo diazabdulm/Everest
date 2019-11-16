@@ -12,8 +12,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import InboxIcon from "@material-ui/icons/InboxTwoTone";
-import CalendarTodayIcon from "@material-ui/icons/EventTwoTone";
+import EventIcon from "@material-ui/icons/EventTwoTone";
 import DateRangeIcon from "@material-ui/icons/DateRangeTwoTone";
+
+import SidebarProjectList from "./SidebarProjectList";
 
 import { toggleDrawer, selectDrawerState } from "../redux/drawer.module";
 
@@ -32,33 +34,40 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Sidebar = ({ drawerState, toggleDrawer }) => {
+const Sidebar = ({ addProject, drawerState, toggleDrawer, projects }) => {
   const classes = useStyles();
   const theme = useTheme();
+
+  const directory = [
+    {
+      id: 0,
+      name: "Inbox",
+      icon: <InboxIcon />
+    },
+    {
+      id: 1,
+      name: "Today",
+      icon: <EventIcon />
+    },
+    {
+      id: 2,
+      name: "Next 7 Days",
+      icon: <DateRangeIcon />
+    }
+  ];
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inbox" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <CalendarTodayIcon />
-          </ListItemIcon>
-          <ListItemText primary="Today" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DateRangeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Next 7 Days" />
-        </ListItem>
+        {directory.map(({ id, name, icon }) => (
+          <ListItem button key={id}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={name} />
+          </ListItem>
+        ))}
+        <SidebarProjectList />
       </List>
     </div>
   );
@@ -104,7 +113,4 @@ const mapDispatchToProps = dispatch => ({
   toggleDrawer: () => dispatch(toggleDrawer())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Sidebar);
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

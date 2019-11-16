@@ -5,7 +5,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import { removeTask } from "../redux/tasks.module";
+import { removeTask } from "../redux/projects.module";
 
 const ContentTask = ({ taskId, name, removeTask }) => (
   <ListItem dense button disableGutters onClick={() => removeTask(taskId)}>
