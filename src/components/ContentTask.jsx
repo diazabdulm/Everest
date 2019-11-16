@@ -7,8 +7,13 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import { removeTask } from "../redux/projects.module";
 
-const ContentTask = ({ taskId, name, removeTask }) => (
-  <ListItem dense button disableGutters onClick={() => removeTask(taskId)}>
+const ContentTask = ({ projectId, taskId, name, removeTask }) => (
+  <ListItem
+    dense
+    button
+    disableGutters
+    onClick={() => removeTask({ taskId, projectId })}
+  >
     <ListItemIcon>
       <Checkbox
         edge="start"
@@ -25,7 +30,4 @@ const mapDispatchToProps = dispatch => ({
   removeTask: taskId => dispatch(removeTask(taskId))
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(ContentTask);
+export default connect(null, mapDispatchToProps)(ContentTask);

@@ -20,6 +20,7 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         [action.payload.projectId]: {
+          ...state[action.payload.projectId],
           tasks: [
             ...state[action.payload.projectId].tasks,
             action.payload.newTaskData
@@ -30,10 +31,10 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         [action.payload.projectId]: {
-          tasks: [
-            ...state.action.payload.projectId.tasks,
-            action.payload.newTaskData
-          ]
+          ...state[action.payload.projectId],
+          tasks: state[action.payload.projectId].tasks.filter(
+            tasks => tasks.id !== action.payload.taskId
+          )
         }
       };
     default:
@@ -65,7 +66,6 @@ const selectProjects = state => state.projects;
 
 export const selectProject = projectId =>
   createSelector([selectProjects], projects => projects[projectId]);
-
 
 export const selectProjectList = createSelector([selectProjects], projects =>
   Object.keys(projects)

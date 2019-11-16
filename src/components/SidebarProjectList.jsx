@@ -30,6 +30,8 @@ const SidebarProjectList = ({ projects, addProject }) => {
     setOpen(!open);
   };
 
+  console.log(projects);
+
   return (
     <Fragment>
       <ListItem button onClick={handleClick}>

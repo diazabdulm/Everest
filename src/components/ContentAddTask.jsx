@@ -24,7 +24,7 @@ const ContentAddTask = ({ addTask, projectId }) => {
     if (!name) return;
 
     const id = uuid.v4();
-    addTask({ id, name, projectId });
+    addTask({ newTaskData: { id, name }, projectId });
   };
 
   return (

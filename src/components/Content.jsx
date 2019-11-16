@@ -17,19 +17,24 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar
 }));
 
-const Content = ({ project: { id, name, tasks } }) => {
+const Content = ({ project }) => {
   const classes = useStyles();
 
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
       <Typography variant="h6" gutterBottom className={classes.title}>
-        {name}
+        {project.name}
       </Typography>
-      {tasks.map(({ id, ...otherProps }) => (
-        <ContentTask key={id} taskId={id} {...otherProps} />
+      {project.tasks.map(({ id, ...otherProps }) => (
+        <ContentTask
+          key={id}
+          taskId={id}
+          projectId={project.id}
+          {...otherProps}
+        />
       ))}
-      <ContentAddTask projectId={id} />
+      <ContentAddTask projectId={project.id} />
     </main>
   );
 };
