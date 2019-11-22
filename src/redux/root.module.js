@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import logger from "redux-logger";
 
 import drawerReducer from "./drawer.module";
@@ -22,7 +22,12 @@ const rootReducer = combineReducers({
 
 const store = configureStore({
   reducer: rootReducer,
-  middlewares
+  middleware: [
+    ...getDefaultMiddleware({
+      serializableCheck: false
+    }),
+    logger
+  ]
 });
 
 export default store;

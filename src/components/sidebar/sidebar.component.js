@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -19,7 +19,10 @@ import useStyles from "./sidebar.styles";
 
 import { toggleDrawer } from "../../redux/drawer.module";
 
-const Sidebar = ({ drawerOpen, drawerWidth, toggleDrawer }) => {
+const Sidebar = () => {
+  const drawerOpen = useSelector(state => state.drawer.open);
+  const drawerWidth = useSelector(state => state.drawer.width);
+  const dispatch = useDispatch();
   const classes = useStyles({ drawerWidth });
   const theme = useTheme();
 
@@ -64,7 +67,7 @@ const Sidebar = ({ drawerOpen, drawerWidth, toggleDrawer }) => {
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
           open={drawerOpen}
-          onClose={toggleDrawer}
+          onClose={() => dispatch(toggleDrawer())}
           classes={{
             paper: classes.drawerPaper
           }}
@@ -90,11 +93,4 @@ const Sidebar = ({ drawerOpen, drawerWidth, toggleDrawer }) => {
   );
 };
 
-const mapStateToProps = ({ drawer }) => ({
-  drawerWidth: drawer.width,
-  drawerOpen: drawer.open
-});
-
-const mapDispatchToProps = { toggleDrawer };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default Sidebar;

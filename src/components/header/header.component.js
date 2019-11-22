@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,13 +9,16 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import { toggleDrawer } from "../../redux/drawer.module";
 
-import SignIn from "../sign-in/sign-in.component";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
 
 import useStyles from "./header.styles";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
   const classes = useStyles();
+  const isUser = useSelector(state => state.user);
   const dispatch = useDispatch();
+
+  console.log(isUser);
 
   return (
     <AppBar position="fixed" className={classes.appbar}>
@@ -25,14 +28,22 @@ const Header = ({ currentUser }) => {
           aria-label="open drawer"
           edge="start"
           className={classes.menuButton}
-          onClick={() => dispatch(toggleDrawer)}
+          onClick={() => dispatch(toggleDrawer())}
         >
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           Everest
         </Typography>
-        {currentUser ? <Button color="inherit">Log Out</Button> : <SignIn />}
+        {isUser ? (
+          <Button color="inherit" onClick={() => auth.signOut()}>
+            Sign Out
+          </Button>
+        ) : (
+          <Button color="inherit" onClick={signInWithGoogle}>
+            Sign in With Google
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
