@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import { makeStyles } from "@material-ui/core/styles";
 import { useTheme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -15,27 +13,14 @@ import InboxIcon from "@material-ui/icons/InboxTwoTone";
 import EventIcon from "@material-ui/icons/EventTwoTone";
 import DateRangeIcon from "@material-ui/icons/DateRangeTwoTone";
 
-import SidebarProjectList from "./SidebarProjectList";
+import ProjectList from "../project-list/project-list.component";
 
-import { toggleDrawer, selectDrawerState } from "../redux/drawer.module";
+import useStyles from "./sidebar.styles";
 
-import drawerWidth from "../common/drawerWidth";
+import { toggleDrawer } from "../../redux/drawer.module";
 
-const useStyles = makeStyles(theme => ({
-  toolbar: theme.mixins.toolbar,
-  drawer: {
-    [theme.breakpoints.up("sm")]: {
-      width: drawerWidth,
-      flexShrink: 0
-    }
-  },
-  drawerPaper: {
-    width: drawerWidth
-  }
-}));
-
-const Sidebar = ({ addProject, drawerState, toggleDrawer, projects }) => {
-  const classes = useStyles();
+const Sidebar = ({ drawerOpen, drawerWidth, toggleDrawer }) => {
+  const classes = useStyles({ drawerWidth });
   const theme = useTheme();
 
   const directory = [
@@ -67,7 +52,7 @@ const Sidebar = ({ addProject, drawerState, toggleDrawer, projects }) => {
             <ListItemText primary={name} />
           </ListItem>
         ))}
-        <SidebarProjectList />
+        <ProjectList />
       </List>
     </div>
   );
@@ -78,7 +63,7 @@ const Sidebar = ({ addProject, drawerState, toggleDrawer, projects }) => {
         <Drawer
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
-          open={drawerState}
+          open={drawerOpen}
           onClose={toggleDrawer}
           classes={{
             paper: classes.drawerPaper
@@ -105,12 +90,11 @@ const Sidebar = ({ addProject, drawerState, toggleDrawer, projects }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  drawerState: selectDrawerState
+const mapStateToProps = ({ drawer }) => ({
+  drawerWidth: drawer.width,
+  drawerOpen: drawer.open
 });
 
-const mapDispatchToProps = dispatch => ({
-  toggleDrawer: () => dispatch(toggleDrawer())
-});
+const mapDispatchToProps = { toggleDrawer };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

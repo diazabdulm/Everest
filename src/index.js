@@ -6,7 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import store from "./redux/root.module";
 
-import App from "./components/App";
+import App from "./components/app/app.component";
 
 ReactDOM.render(
   <Provider store={store}>

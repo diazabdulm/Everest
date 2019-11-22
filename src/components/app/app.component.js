@@ -1,16 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Route } from "react-router-dom";
 
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import Content from "./Content";
+import Header from "../header/header.component";
+import Sidebar from "../sidebar/sidebar.component";
+import Content from "../content/content.component";
 
-const useStyles = makeStyles({
-  root: {
-    display: "flex"
-  }
-});
+import useStyles from "./app.styles";
 
 const App = () => {
   const classes = useStyles();

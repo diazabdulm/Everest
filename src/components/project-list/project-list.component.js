@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import { createStructuredSelector } from "reselect";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Collapse from "@material-ui/core/Collapse";
 import Divider from "@material-ui/core/Divider";
@@ -14,23 +13,23 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import CircleIcon from "@material-ui/icons/FiberManualRecord";
 
-import { addProject, selectProjectList } from "../redux/projects.module";
+import { addProject } from "../../redux/projects.module";
 
 const createNewProjectData = () => {
-  const name = window.prompt(`What's the new project's name?`);
-  if (!name) return;
+  const text = window.prompt(`What's the new project's name?`);
+  if (!text) return;
 
-  return { name, tasks: [] };
+  return text.trim();
 };
 
-const SidebarProjectList = ({ projects, addProject }) => {
+const ProjectList = () => {
   const [open, setOpen] = React.useState(true);
+  const projects = useSelector(state => state.projects);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setOpen(!open);
   };
-
-  console.log(projects);
 
   return (
     <Fragment>
@@ -41,15 +40,18 @@ const SidebarProjectList = ({ projects, addProject }) => {
       <Divider />
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {projects.map(({ id, name }) => (
+          {projects.map(({ id, text }) => (
             <ListItem button key={id} component={Link} to={`/project/${id}`}>
               <ListItemIcon>
                 <CircleIcon />
               </ListItemIcon>
-              <ListItemText primary={name} />
+              <ListItemText primary={text} />
             </ListItem>
           ))}
-          <ListItem button onClick={() => addProject(createNewProjectData())}>
+          <ListItem
+            button
+            onClick={() => dispatch(addProject(createNewProjectData()))}
+          >
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
@@ -61,12 +63,4 @@ const SidebarProjectList = ({ projects, addProject }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  projects: selectProjectList
-});
-
-const mapDispatchToProps = dispatch => ({
-  addProject: projectData => dispatch(addProject(projectData))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarProjectList);
+export default ProjectList;

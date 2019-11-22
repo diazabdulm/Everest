@@ -1,74 +1,26 @@
-import { omit } from "lodash";
-import { createSelector } from "reselect";
+import v4 from "uuid/v4";
+import { createSlice } from "@reduxjs/toolkit";
 
-const ADD_PROJECT = "everest/tasks/ADD_PROJECT";
-const REMOVE_PROJECT = "everest/tasks/REMOVE_PROJECT";
-const ADD_TASK = "everest/tasks/ADD_TASK";
-const REMOVE_TASK = "everest/tasks/REMOVE_TASK";
-
-export default function reducer(state = {}, action) {
-  switch (action.type) {
-    case ADD_PROJECT:
-      const id = new Date().getTime();
-      return {
-        ...state,
-        [id]: { id, ...action.payload }
-      };
-    case REMOVE_PROJECT:
-      return omit(state, action.payload);
-    case ADD_TASK:
-      return {
-        ...state,
-        [action.payload.projectId]: {
-          ...state[action.payload.projectId],
-          tasks: [
-            ...state[action.payload.projectId].tasks,
-            action.payload.newTaskData
-          ]
-        }
-      };
-    case REMOVE_TASK:
-      return {
-        ...state,
-        [action.payload.projectId]: {
-          ...state[action.payload.projectId],
-          tasks: state[action.payload.projectId].tasks.filter(
-            tasks => tasks.id !== action.payload.taskId
-          )
-        }
-      };
-    default:
-      return state;
+const projects = createSlice({
+  name: "projects",
+  initialState: [],
+  reducers: {
+    addProject: {
+      reducer: (state, action) => {
+        state.push(action.payload);
+      },
+      prepare: text => ({
+        payload: { id: v4(), text }
+      })
+    },
+    removeProject: (state, action) =>
+      state.filter(project => project.id !== action.payload.id)
   }
-}
-
-export const addProject = projectData => ({
-  type: ADD_PROJECT,
-  payload: projectData
 });
 
-export const removeProject = projectId => ({
-  type: REMOVE_PROJECT,
-  payload: projectId
-});
+export const { addProject, removeProject } = projects.actions;
 
-export const addTask = taskData => ({
-  type: ADD_TASK,
-  payload: taskData
-});
+export const selectCurrentProject = (state, projectId) =>
+  state.projects.find(project => project.id === projectId);
 
-export const removeTask = taskId => ({
-  type: REMOVE_TASK,
-  payload: taskId
-});
-
-const selectProjects = state => state.projects;
-
-export const selectProject = projectId =>
-  createSelector([selectProjects], projects => projects[projectId]);
-
-export const selectProjectList = createSelector([selectProjects], projects =>
-  Object.keys(projects)
-    .map(id => projects[id])
-    .sort((a, b) => a - b)
-);
+export default projects.reducer;
