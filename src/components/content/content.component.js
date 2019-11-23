@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 
@@ -10,7 +11,7 @@ import AddTask from "../add-task/add-task.component";
 
 import useStyles from "./content.styles";
 
-const Content = ({ match }) => {
+const Content = ({ match, history }) => {
   const classes = useStyles();
   const project = useSelector(state =>
     selectCurrentProject(state, match.params.id)
@@ -18,6 +19,11 @@ const Content = ({ match }) => {
   const tasks = useSelector(state =>
     selectProjectTasks(state, match.params.id)
   );
+
+  if (!project) {
+    history.push("/");
+    return null;
+  }
 
   return (
     <main className={classes.content}>
@@ -30,7 +36,7 @@ const Content = ({ match }) => {
       ))}
       <AddTask projectId={project.id} />
     </main>
-  );
+  )
 };
 
-export default Content;
+export default withRouter(Content);

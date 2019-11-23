@@ -6,11 +6,7 @@ import Header from "../header/header.component";
 import Sidebar from "../sidebar/sidebar.component";
 import Content from "../content/content.component";
 
-import firebase, {
-  createUserProfileDocument
-} from "../../firebase/firebase.utils";
-
-import { setUser } from "../../redux/user.module";
+import { beginCheckUserSession } from "../../redux/user.module";
 
 import useStyles from "./app.styles";
 
@@ -19,24 +15,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(async user => {
-      if (user) {
-        const userRef = await createUserProfileDocument(user);
-
-        userRef.onSnapshot(snapShot => {
-          dispatch(
-            setUser({
-              id: snapShot.id,
-              ...snapShot.data()
-            })
-          );
-        });
-      } else {
-        dispatch(setUser(user));
-      }
-    });
-
-    return () => unsubscribe();
+    dispatch(beginCheckUserSession());
   }, [dispatch]);
 
   return (

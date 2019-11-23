@@ -8,14 +8,13 @@ import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { toggleDrawer } from "../../redux/drawer.module";
-
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import { beginGoogleSignIn, beginSignOut } from "../../redux/user.module";
 
 import useStyles from "./header.styles";
 
 const Header = () => {
   const classes = useStyles();
-  const isUser = useSelector(state => state.user);
+  const isUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
 
   return (
@@ -34,11 +33,11 @@ const Header = () => {
           Everest
         </Typography>
         {isUser ? (
-          <Button color="inherit" onClick={() => auth.signOut()}>
+          <Button color="inherit" onClick={() => dispatch(beginSignOut())}>
             Sign Out
           </Button>
         ) : (
-          <Button color="inherit" onClick={signInWithGoogle}>
+          <Button color="inherit" onClick={() => dispatch(beginGoogleSignIn())}>
             Sign in With Google
           </Button>
         )}

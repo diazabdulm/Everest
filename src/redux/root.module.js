@@ -26,7 +26,7 @@ const store = configureStore({
     ...getDefaultMiddleware({
       serializableCheck: false
     }),
-    logger
+    ...middlewares
   ]
 });
 
