@@ -18,8 +18,6 @@ const Header = () => {
   const isUser = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  console.log(isUser);
-
   return (
     <AppBar position="fixed" className={classes.appbar}>
       <Toolbar>
