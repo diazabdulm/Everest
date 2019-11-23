@@ -31,13 +31,13 @@ const App = () => {
             })
           );
         });
+      } else {
+        dispatch(setUser(user));
       }
-
-      dispatch(setUser(user));
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={classes.root}>
