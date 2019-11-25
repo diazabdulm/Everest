@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 
 import drawerReducer from "./drawer.module";
@@ -13,6 +15,11 @@ if (process.env.NODE_ENV === "development") {
   middlewares.push(logger);
 }
 
+const persistConfig = {
+  key: "root",
+  storage
+};
+
 const rootReducer = combineReducers({
   drawer: drawerReducer,
   projects: projectsReducer,
@@ -20,8 +27,10 @@ const rootReducer = combineReducers({
   user: userReducer
 });
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: [
     ...getDefaultMiddleware({
       serializableCheck: false
@@ -30,4 +39,6 @@ const store = configureStore({
   ]
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

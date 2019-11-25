@@ -1,20 +1,20 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 import { toggleDrawer } from "../../redux/drawer.module";
-import { beginGoogleSignIn, beginSignOut } from "../../redux/user.module";
+import { beginSignOut } from "../../redux/user.module";
 
 import useStyles from "./header.styles";
 
 const Header = () => {
   const classes = useStyles();
-  const isUser = useSelector(({ user }) => user.currentUser);
   const dispatch = useDispatch();
 
   return (
@@ -32,15 +32,13 @@ const Header = () => {
         <Typography variant="h6" className={classes.title}>
           Everest
         </Typography>
-        {isUser ? (
-          <Button color="inherit" onClick={() => dispatch(beginSignOut())}>
-            Sign Out
-          </Button>
-        ) : (
-          <Button color="inherit" onClick={() => dispatch(beginGoogleSignIn())}>
-            Sign in With Google
-          </Button>
-        )}
+        <Button
+          color="inherit"
+          startIcon={<ExitToAppIcon />}
+          onClick={() => dispatch(beginSignOut())}
+        >
+          Sign Out
+        </Button>
       </Toolbar>
     </AppBar>
   );

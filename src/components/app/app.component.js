@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect, Fragment } from "react";
 import { useDispatch } from "react-redux";
 
-import Header from "../header/header.component";
-import Sidebar from "../sidebar/sidebar.component";
-import Content from "../content/content.component";
+import PublicRoute from '../public-route/public-route.component'
+import PrivateRoute from "../private-route/private-route.component";
+
+import SignInPage from "../../pages/sign-in/sign-in.component";
+import TasksPage from "../../pages/tasks/tasks.component";
 
 import { beginCheckUserSession } from "../../redux/user.module";
 
-import useStyles from "./app.styles";
-
 const App = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,11 +17,10 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className={classes.root}>
-      <Header />
-      <Sidebar />
-      <Route path="/project/:id" component={Content} />
-    </div>
+    <Fragment>
+      <PublicRoute exact path="/" component={SignInPage} />
+      <PrivateRoute path="/projects" component={TasksPage} />
+    </Fragment>
   );
 };
 

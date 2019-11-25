@@ -39,6 +39,28 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
+export const setUserData = async (userId, key, value) => {
+  const userRef = firestore.doc(`users/${userId}`);
+
+  try {
+    await userRef.set({
+      [key]: value
+    });
+  } catch (error) {
+    console.log(`error setting user data: ${error}`);
+  }
+};
+
+export const addUserData = async (userId, path, data) => {
+  const userRef = firestore.doc(`users/${userId}`).collection(path);
+
+  try {
+    await userRef.add(data);
+  } catch (error) {
+    console.log(`error setting user data: ${error}`);
+  }
+};
+
 export const getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged(userAuth => {
@@ -52,7 +74,6 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: "select_account" });
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

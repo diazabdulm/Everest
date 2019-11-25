@@ -14,11 +14,15 @@ const projects = createSlice({
       })
     },
     removeProject: (state, action) =>
-      state.filter(project => project.id !== action.payload.id)
+      state.filter(project => project.id !== action.payload.id),
+    setProjects: (state, action) => {
+      state = action.payload;
+      return state;
+    }
   }
 });
 
-export const { addProject, removeProject } = projects.actions;
+export const { addProject, removeProject, setProjects } = projects.actions;
 
 export const selectCurrentProject = (state, projectId) =>
   state.projects.find(project => project.id === projectId);

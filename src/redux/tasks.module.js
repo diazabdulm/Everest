@@ -1,5 +1,8 @@
 import v4 from "uuid/v4";
 import { createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
+
+import { addUserData } from "../firebase/firebase.utils";
 
 const tasks = createSlice({
   name: "tasks",
@@ -9,18 +12,51 @@ const tasks = createSlice({
       reducer: (state, action) => {
         state.push(action.payload);
       },
-      prepare: ({ text, projectId }) => ({
-        payload: { id: v4(), text, projectId }
+      prepare: payload => ({
+        payload: { id: v4(), ...payload }
       })
     },
     removeTask: (state, action) =>
-      state.filter(task => task.id !== action.payload)
+      state.filter(task => task.id !== action.payload),
+    setTasks: (state, action) => {
+      state = action.payload;
+      return state;
+    }
   }
 });
 
-export const { addTask, removeTask } = tasks.actions;
-
-export const selectProjectTasks = (state, projectId) =>
-  state.tasks.filter(task => task.projectId === projectId);
+export const { addTask, removeTask, setTasks } = tasks.actions;
 
 export default tasks.reducer;
+
+export const selectProjectTasks = (state, currentProjectId) =>
+  state.tasks.filter(task => task.projectId === currentProjectId);
+
+export const selectAllTasks = state => state.tasks;
+
+export const selectTodayTasks = state => {
+  const today = new Date();
+  state.tasks.filter(task => {
+    console.log(moment(task.date).isSame(today, "day"));
+    return task.date && moment(task.date).isSame(today, "day");
+  });
+};
+
+export const selectWeekTasks = state => {
+  const nextWeek = moment().add(5, "days");
+  state.tasks.filter(task => moment(task.date).isBefore(nextWeek));
+};
+
+export const beginAddTask = taskData => {
+  return async (dispatch, getState) => {
+    const userId = getState().user.currentUser.id;
+    console.log(taskData);
+
+    try {
+      await addUserData(userId, "tasks", taskData);
+      dispatch(addTask(taskData));
+    } catch (error) {
+      console.log(`failure ${error}`);
+    }
+  };
+};

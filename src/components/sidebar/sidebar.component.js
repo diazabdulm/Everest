@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTheme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -9,11 +10,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import InboxIcon from "@material-ui/icons/InboxTwoTone";
+import AllInboxIcon from "@material-ui/icons/AllInboxTwoTone";
 import EventIcon from "@material-ui/icons/EventTwoTone";
 import DateRangeIcon from "@material-ui/icons/DateRangeTwoTone";
 
 import ProjectList from "../project-list/project-list.component";
+import AddProject from "../add-project/add-project.component";
 
 import useStyles from "./sidebar.styles";
 
@@ -29,18 +31,21 @@ const Sidebar = () => {
   const directory = [
     {
       id: 0,
-      name: "Inbox",
-      icon: <InboxIcon />
+      name: "All",
+      icon: <AllInboxIcon />,
+      linkUrl: "all"
     },
     {
       id: 1,
       name: "Today",
-      icon: <EventIcon />
+      icon: <EventIcon />,
+      linkUrl: "today"
     },
     {
       id: 2,
       name: "Next 7 Days",
-      icon: <DateRangeIcon />
+      icon: <DateRangeIcon />,
+      linkUrl: "week"
     }
   ];
 
@@ -49,13 +54,20 @@ const Sidebar = () => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {directory.map(({ id, name, icon }) => (
-          <ListItem button key={id}>
+        {directory.map(({ id, name, icon, linkUrl }) => (
+          <ListItem
+            button
+            key={id}
+            component={Link}
+            to={`/projects/${linkUrl}`}
+            onClick={() => dispatch(toggleDrawer())}
+          >
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={name} />
           </ListItem>
         ))}
         <ProjectList />
+        <AddProject />
       </List>
     </div>
   );

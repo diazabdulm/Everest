@@ -1,20 +1,22 @@
 import React from "react";
-import { connect } from "react-redux";
+import chrono from "chrono-node";
+import { useDispatch } from "react-redux";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 
 import useStyles from "./add-task.styles";
 
-import { addTask } from "../../redux/tasks.module";
+import { beginAddTask } from "../../redux/tasks.module";
 
-const AddTask = ({ addTask, projectId }) => {
+const AddTask = ({ projectId }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleAddTask = () => {
     const text = window.prompt(`What's the name of the task?`);
     if (!text) return;
-
-    addTask({ text, projectId });
+    console.log(chrono.parseDate(text));
+    dispatch(beginAddTask({ text, projectId, date: chrono.parseDate(text) }));
   };
 
   return (
@@ -29,6 +31,4 @@ const AddTask = ({ addTask, projectId }) => {
   );
 };
 
-const mapDispatchToProps = { addTask };
-
-export default connect(null, mapDispatchToProps)(AddTask);
+export default AddTask;

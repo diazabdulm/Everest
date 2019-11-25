@@ -22,29 +22,24 @@ const user = createSlice({
       state.currentUser = null;
       state.error = null;
     },
-    signInFailure: (state, action) => (state.error = action.payload),
-    signOutFailure: (state, action) => (state.error = action.payload)
+    processFailure: (state, action) => {
+      state.error = action.payload;
+    }
   }
 });
 
-export const {
-  signInSuccess,
-  signOutSuccess,
-  signInFailure,
-  signOutFailure
-} = user.actions;
+export const { signInSuccess, signOutSuccess, processFailure } = user.actions;
 
 export default user.reducer;
 
 export const getSnapshotFromUserAuth = (userAuth, additionalData) => {
   return async dispatch => {
     try {
-      console.log(userAuth);
       const userRef = await createUserProfileDocument(userAuth, additionalData);
       const userSnapshot = await userRef.get();
       dispatch(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
     } catch (error) {
-      dispatch(signInFailure(error));
+      dispatch(processFailure(error));
     }
   };
 };
@@ -55,7 +50,7 @@ export const signInWithGoogle = () => {
       const { user } = await auth.signInWithPopup(googleProvider);
       dispatch(getSnapshotFromUserAuth(user));
     } catch (error) {
-      dispatch(signInFailure(error));
+      dispatch(processFailure(error));
     }
   };
 };
@@ -67,7 +62,7 @@ export const isUserAuthenticated = () => {
       if (!userAuth) return;
       dispatch(getSnapshotFromUserAuth(userAuth));
     } catch (error) {
-      dispatch(signInFailure(error));
+      dispatch(processFailure(error));
     }
   };
 };
@@ -78,7 +73,7 @@ export const signOut = () => {
       auth.signOut();
       dispatch(signOutSuccess());
     } catch (error) {
-      dispatch(signOutFailure(error));
+      dispatch(processFailure(error));
     }
   };
 };
