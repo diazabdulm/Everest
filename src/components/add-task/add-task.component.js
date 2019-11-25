@@ -15,7 +15,6 @@ const AddTask = ({ projectId }) => {
   const handleAddTask = () => {
     const text = window.prompt(`What's the name of the task?`);
     if (!text) return;
-    console.log(chrono.parseDate(text));
     dispatch(beginAddTask({ text, projectId, date: chrono.parseDate(text) }));
   };
 

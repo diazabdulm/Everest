@@ -29,22 +29,23 @@ export const { addTask, removeTask, setTasks } = tasks.actions;
 
 export default tasks.reducer;
 
-export const selectProjectTasks = (state, currentProjectId) =>
-  state.tasks.filter(task => task.projectId === currentProjectId);
+export const selectProjectTasks = (state, currentProjectId) => {
+  console.log(currentProjectId)
+  return state.tasks.filter(task => task.projectId === currentProjectId);
+};
 
 export const selectAllTasks = state => state.tasks;
 
 export const selectTodayTasks = state => {
   const today = new Date();
-  state.tasks.filter(task => {
-    console.log(moment(task.date).isSame(today, "day"));
-    return task.date && moment(task.date).isSame(today, "day");
-  });
+  return state.tasks.filter(
+    task => task.date && moment(task.date).isSame(today, "day")
+  );
 };
 
 export const selectWeekTasks = state => {
   const nextWeek = moment().add(5, "days");
-  state.tasks.filter(task => moment(task.date).isBefore(nextWeek));
+  return state.tasks.filter(task => moment(task.date).isBefore(nextWeek));
 };
 
 export const beginAddTask = taskData => {

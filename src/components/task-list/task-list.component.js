@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 
 import Task from "../task/task.component";
@@ -9,8 +8,6 @@ import useStyles from "./task-list.styles";
 
 const TaskList = ({ projectName, projectId, tasks }) => {
   const classes = useStyles();
-
-  console.log(projectName, projectId, tasks)
 
   return (
     <main className={classes.content}>
@@ -26,4 +23,4 @@ const TaskList = ({ projectName, projectId, tasks }) => {
   );
 };
 
-export default withRouter(TaskList);
+export default TaskList;

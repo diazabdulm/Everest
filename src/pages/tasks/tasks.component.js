@@ -1,28 +1,33 @@
 import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/header/header.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
-import TaskList from "../../components/task-list/task-list.component";
-import { AllTasks, TodayTasks, WeekTasks, ProjectTasks } from "../../components/filters/filters.component";
+import {
+  AllTasks,
+  TodayTasks,
+  WeekTasks,
+  ProjectTasks
+} from "../../components/filters/filters.component";
 
-const TasksPage = ({ match }) => {
-  const projectId = match.params.id;
+import useStyles from "./tasks.styles";
 
-  console.log(`${match.path}/all`)
+const TasksPage = () => {
+  const { path } = useRouteMatch();
+  const classes = useStyles();
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className={classes.container}>
       <Header />
       <Sidebar />
       <Switch>
-        <Route exact path={`${match.path}/all`} component={AllTasks} />
-        <Route exact path={`${match.path}/today`} component={TodayTasks} />
-        <Route exact path={`${match.path}/week`} component={WeekTasks} />
-        <Route exact path={`${match.path}/:id`} component={ProjectTasks} />
+        <Route exact path={`${path}/all`} component={AllTasks} />
+        <Route exact path={`${path}/today`} component={TodayTasks} />
+        <Route exact path={`${path}/week`} component={WeekTasks} />
+        <Route exact path={`${path}/:projectId`} component={ProjectTasks} />
       </Switch>
     </div>
   );
 };
 
-export default withRouter(TasksPage);
+export default TasksPage;
