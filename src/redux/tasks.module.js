@@ -2,6 +2,8 @@ import v4 from "uuid/v4";
 import { createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
 
+import { signOutSuccess } from "./user.module";
+
 import { addUserData } from "../firebase/firebase.utils";
 
 const tasks = createSlice({
@@ -22,6 +24,9 @@ const tasks = createSlice({
       state = action.payload;
       return state;
     }
+  },
+  extraReducers: {
+    [signOutSuccess]: () => [] // clear tasks upon user sign out
   }
 });
 
@@ -30,7 +35,7 @@ export const { addTask, removeTask, setTasks } = tasks.actions;
 export default tasks.reducer;
 
 export const selectProjectTasks = (state, currentProjectId) => {
-  console.log(currentProjectId)
+  console.log(currentProjectId);
   return state.tasks.filter(task => task.projectId === currentProjectId);
 };
 

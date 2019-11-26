@@ -1,18 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useTheme } from "@material-ui/core/styles";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import {
+  useTheme,
+  Divider,
+  Drawer,
+  Hidden,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from "@material-ui/core";
 
-import AllInboxIcon from "@material-ui/icons/AllInboxTwoTone";
-import EventIcon from "@material-ui/icons/EventTwoTone";
-import DateRangeIcon from "@material-ui/icons/DateRangeTwoTone";
+import {
+  AllInboxTwoTone as AllIcon,
+  EventTwoTone as TodayIcon,
+  DateRangeTwoTone as WeekIcon
+} from "@material-ui/icons";
 
 import ProjectList from "../project-list/project-list.component";
 import AddProject from "../add-project/add-project.component";
@@ -32,19 +36,19 @@ const Sidebar = () => {
     {
       id: 0,
       name: "All",
-      icon: <AllInboxIcon />,
+      icon: <AllIcon />,
       linkUrl: "all"
     },
     {
       id: 1,
       name: "Today",
-      icon: <EventIcon />,
+      icon: <TodayIcon />,
       linkUrl: "today"
     },
     {
       id: 2,
       name: "Next 7 Days",
-      icon: <DateRangeIcon />,
+      icon: <WeekIcon />,
       linkUrl: "week"
     }
   ];

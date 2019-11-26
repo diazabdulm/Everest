@@ -77,21 +77,3 @@ export const signOut = () => {
     }
   };
 };
-
-export const beginCheckUserSession = () => {
-  return dispatch => {
-    dispatch(isUserAuthenticated());
-  };
-};
-
-export const beginGoogleSignIn = () => {
-  return dispatch => {
-    dispatch(signInWithGoogle());
-  };
-};
-
-export const beginSignOut = () => {
-  return dispatch => {
-    dispatch(signOut());
-  };
-};

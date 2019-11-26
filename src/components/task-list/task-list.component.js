@@ -1,5 +1,5 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import { Typography } from "@material-ui/core";
 
 import Task from "../task/task.component";
 import AddTask from "../add-task/add-task.component";

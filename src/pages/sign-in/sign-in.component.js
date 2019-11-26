@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import Button from "@material-ui/core/Button";
-import LockIcon from "@material-ui/icons/Lock";
+import { Button } from "@material-ui/core";
+import { Lock as LockIcon } from "@material-ui/icons";
 
-import { beginGoogleSignIn } from "../../redux/user.module";
+import { signInWithGoogle } from "../../redux/user.module";
 
 import useStyles from "./sign-in.styles";
 
@@ -18,7 +18,7 @@ const SignInPage = () => {
         color="primary"
         className={classes.button}
         startIcon={<LockIcon />}
-        onClick={() => dispatch(beginGoogleSignIn())}
+        onClick={() => dispatch(signInWithGoogle())}
       >
         Sign In with Google
       </Button>

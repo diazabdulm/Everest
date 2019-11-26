@@ -1,9 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
+import {
+  Checkbox,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from "@material-ui/core";
 
 import { removeTask } from "../../redux/tasks.module";
 

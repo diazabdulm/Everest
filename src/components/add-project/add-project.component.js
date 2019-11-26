@@ -1,9 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import AddIcon from "@material-ui/icons/Add";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Add as AddIcon } from "@material-ui/icons";
 
 import { addProject } from "../../redux/projects.module";
 

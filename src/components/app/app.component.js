@@ -7,13 +7,13 @@ import PrivateRoute from "../private-route/private-route.component";
 import SignInPage from "../../pages/sign-in/sign-in.component";
 import TasksPage from "../../pages/tasks/tasks.component";
 
-import { beginCheckUserSession } from "../../redux/user.module";
+import { isUserAuthenticated } from "../../redux/user.module";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(beginCheckUserSession());
+    dispatch(isUserAuthenticated());
   }, [dispatch]);
 
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import chrono from "chrono-node";
 import { useDispatch } from "react-redux";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import { Fab } from "@material-ui/core";
+import { Add as AddIcon } from "@material-ui/icons";
 
 import useStyles from "./add-task.styles";
 

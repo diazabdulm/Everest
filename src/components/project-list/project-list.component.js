@@ -1,11 +1,8 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-
-import ListIcon from "@material-ui/icons/List";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { List as ListIcon } from "@material-ui/icons";
 
 const ProjectList = () => {
   const projects = useSelector(state => state.projects);

@@ -1,6 +1,8 @@
 import v4 from "uuid/v4";
 import { createSlice } from "@reduxjs/toolkit";
 
+import { signOutSuccess } from "./user.module";
+
 const projects = createSlice({
   name: "projects",
   initialState: [],
@@ -19,6 +21,9 @@ const projects = createSlice({
       state = action.payload;
       return state;
     }
+  },
+  extraReducers: {
+    [signOutSuccess]: () => [] // clear projects upon user sign out
   }
 });
 
