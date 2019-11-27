@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 
 import {
+  InboxTwoTone as InboxIcon,
   AllInboxTwoTone as AllIcon,
   EventTwoTone as TodayIcon,
   DateRangeTwoTone as WeekIcon
@@ -50,6 +51,12 @@ const Sidebar = () => {
       name: "Next 7 Days",
       icon: <WeekIcon />,
       linkUrl: "week"
+    },
+    {
+      id: 3,
+      name: "Inbox",
+      icon: <InboxIcon />,
+      linkUrl: "inbox"
     }
   ];
 

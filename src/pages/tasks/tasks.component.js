@@ -7,6 +7,7 @@ import {
   AllTasks,
   TodayTasks,
   WeekTasks,
+  InboxTasks,
   ProjectTasks
 } from "../../components/filters/filters.component";
 
@@ -24,6 +25,7 @@ const TasksPage = () => {
         <Route exact path={`${path}/all`} component={AllTasks} />
         <Route exact path={`${path}/today`} component={TodayTasks} />
         <Route exact path={`${path}/week`} component={WeekTasks} />
+        <Route exact path={`${path}/inbox`} component={InboxTasks} />
         <Route exact path={`${path}/:projectId`} component={ProjectTasks} />
       </Switch>
     </div>

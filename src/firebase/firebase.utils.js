@@ -39,26 +39,47 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const setUserData = async (userId, key, value) => {
-  const userRef = firestore.doc(`users/${userId}`);
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = firestore.collection(collectionKey);
 
-  try {
-    await userRef.set({
-      [key]: value
-    });
-  } catch (error) {
-    console.log(`error setting user data: ${error}`);
-  }
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc(obj.id);
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit();
 };
 
-export const addUserData = async (userId, path, data) => {
-  const userRef = firestore.doc(`users/${userId}`).collection(path);
+export const convertTasksSnapshotToMap = tasks => {
+  const transformedTaskCollection = tasks.docs.map(doc => {
+    const { text, date, projectId } = doc.data();
 
-  try {
-    await userRef.add(data);
-  } catch (error) {
-    console.log(`error setting user data: ${error}`);
-  }
+    return {
+      text,
+      date,
+      projectId,
+      id: doc.id
+    };
+  });
+
+  return transformedTaskCollection;
+};
+
+export const convertProjectsSnapshotToMap = projects => {
+  const transformedProjectCollection = projects.docs.map(doc => {
+    const { text } = doc.data();
+
+    return {
+      text,
+      id: doc.id
+    };
+  });
+
+  return transformedProjectCollection;
 };
 
 export const getCurrentUser = () => {

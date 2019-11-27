@@ -6,6 +6,7 @@ import {
   selectAllTasks,
   selectTodayTasks,
   selectWeekTasks,
+  selectInboxTasks,
   selectProjectTasks
 } from "../../redux/tasks.module";
 
@@ -33,6 +34,12 @@ export const WeekTasks = () => {
   return (
     <TaskList projectName="Next 7 Days" projectId={projectId} tasks={tasks} />
   );
+};
+
+export const InboxTasks = () => {
+  const tasks = useSelector(selectInboxTasks);
+
+  return <TaskList projectName="Inbox" projectId={projectId} tasks={tasks} />;
 };
 
 export const ProjectTasks = () => {

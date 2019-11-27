@@ -1,10 +1,15 @@
 import v4 from "uuid/v4";
+import chrono from "chrono-node";
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 import moment from "moment";
 
 import { signOutSuccess } from "./user.module";
 
-import { addUserData } from "../firebase/firebase.utils";
+import {
+  firestore,
+  convertTasksSnapshotToMap
+} from "../firebase/firebase.utils";
 
 const tasks = createSlice({
   name: "tasks",
@@ -14,8 +19,13 @@ const tasks = createSlice({
       reducer: (state, action) => {
         state.push(action.payload);
       },
-      prepare: payload => ({
-        payload: { id: v4(), ...payload }
+      prepare: ({ text, projectId }) => ({
+        payload: {
+          id: v4(),
+          date: chrono.parseDate(text),
+          text,
+          projectId
+        }
       })
     },
     removeTask: (state, action) =>
@@ -34,35 +44,36 @@ export const { addTask, removeTask, setTasks } = tasks.actions;
 
 export default tasks.reducer;
 
+export const selectAllTasks = state => state.tasks;
+
+export const selectTodayTasks = createSelector([selectAllTasks], tasks => {
+  const today = moment();
+  return tasks.filter(task => moment(task.date).isSame(today, "day"));
+});
+
+export const selectWeekTasks = createSelector([selectAllTasks], tasks => {
+  const nextWeek = moment().add(5, "days");
+  return tasks.filter(task => moment(task.date).isBefore(nextWeek));
+});
+
+export const selectInboxTasks = createSelector([selectAllTasks], tasks =>
+  tasks.filter(task => task.projectId === 0)
+);
+
 export const selectProjectTasks = (state, currentProjectId) => {
-  console.log(currentProjectId);
   return state.tasks.filter(task => task.projectId === currentProjectId);
 };
 
-export const selectAllTasks = state => state.tasks;
-
-export const selectTodayTasks = state => {
-  const today = new Date();
-  return state.tasks.filter(
-    task => task.date && moment(task.date).isSame(today, "day")
-  );
-};
-
-export const selectWeekTasks = state => {
-  const nextWeek = moment().add(5, "days");
-  return state.tasks.filter(task => moment(task.date).isBefore(nextWeek));
-};
-
-export const beginAddTask = taskData => {
+export const fetchTasks = () => {
   return async (dispatch, getState) => {
-    const userId = getState().user.currentUser.id;
-    console.log(taskData);
-
     try {
-      await addUserData(userId, "tasks", taskData);
-      dispatch(addTask(taskData));
+      const userId = getState().user.currentUser.id;
+      const tasksRef = firestore.collection("users").doc(userId).collection("tasks");
+      const snapshot = await tasksRef.get();
+      const taskCollection = convertTasksSnapshotToMap(snapshot);
+      dispatch(setTasks(taskCollection));
     } catch (error) {
-      console.log(`failure ${error}`);
+      console.log(error);
     }
   };
 };

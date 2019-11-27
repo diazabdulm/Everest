@@ -8,12 +8,14 @@ import SignInPage from "../../pages/sign-in/sign-in.component";
 import TasksPage from "../../pages/tasks/tasks.component";
 
 import { isUserAuthenticated } from "../../redux/user.module";
+import { fetchTasks } from "../../redux/tasks.module";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(isUserAuthenticated());
+    dispatch(fetchTasks());
   }, [dispatch]);
 
   return (
