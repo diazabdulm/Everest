@@ -18,6 +18,14 @@ import useStyles from "./tasks.styles";
 const TasksPage = () => {
   const classes = useStyles();
   const { path } = useRouteMatch();
+  const userId = useSelector(state => state.firebase.auth.uid);
+
+  useFirestoreConnect([
+    {
+      collection: "projects",
+      where: ["userId", "==", userId]
+    }
+  ]);
 
   return (
     <div className={classes.container}>
