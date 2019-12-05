@@ -22,7 +22,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
-    const createdAt = Date.now();
+    const createdAt = new Date();
 
     try {
       await userRef.set({
@@ -82,19 +82,7 @@ export const convertProjectsSnapshotToMap = projects => {
   return transformedProjectCollection;
 };
 
-export const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    const unsubscribe = auth.onAuthStateChanged(userAuth => {
-      unsubscribe();
-      resolve(userAuth);
-    }, reject);
-  });
-};
-
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;

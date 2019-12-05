@@ -4,8 +4,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import moment from "moment";
 
-import { signOutSuccess } from "./user.module";
-
 import {
   firestore,
   convertTasksSnapshotToMap
@@ -34,9 +32,6 @@ const tasks = createSlice({
       state = action.payload;
       return state;
     }
-  },
-  extraReducers: {
-    [signOutSuccess]: () => [] // clear tasks upon user sign out
   }
 });
 
@@ -64,14 +59,24 @@ export const selectProjectTasks = (state, currentProjectId) => {
   return state.tasks.filter(task => task.projectId === currentProjectId);
 };
 
-export const fetchTasks = () => {
-  return async (dispatch, getState) => {
+export const addTaskAsync = (text, projectId) => {
+  return async (dispatch, getState, getFirebase) => {
     try {
       const userId = getState().user.currentUser.id;
-      const tasksRef = firestore.collection("users").doc(userId).collection("tasks");
-      const snapshot = await tasksRef.get();
-      const taskCollection = convertTasksSnapshotToMap(snapshot);
-      dispatch(setTasks(taskCollection));
+      const taskId = v4();
+      const tasksRef = firestore
+        .collection("users")
+        .doc(userId)
+        .collection("tasks");
+      const newTaskRef = tasksRef.doc(taskId);
+      const newTaskData = {
+        id: taskId,
+        date: chrono.parseDate(text),
+        text,
+        projectId
+      };
+      await newTaskRef.set(newTaskData);
+      dispatch(addTask(newTaskData));
     } catch (error) {
       console.log(error);
     }

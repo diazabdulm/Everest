@@ -4,10 +4,16 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 
+import { firebaseReducer } from "react-redux-firebase";
+import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
+
+import firebase from "../firebase/firebase.utils";
+
 import drawerReducer from "./drawer.module";
 import projectsReducer from "./projects.module";
 import tasksReducer from "./tasks.module";
-import userReducer from "./user.module";
+
+const reactReduxFirebaseConfig = {};
 
 const middlewares = [];
 
@@ -17,14 +23,15 @@ if (process.env.NODE_ENV === "development") {
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage
 };
 
 const rootReducer = combineReducers({
   drawer: drawerReducer,
   projects: projectsReducer,
   tasks: tasksReducer,
-  user: userReducer
+  firebase: firebaseReducer,
+  firestore: firestoreReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -41,4 +48,11 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-export { store, persistor };
+const reactReduxFirebaseProps = {
+  firebase,
+  config: reactReduxFirebaseConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
+
+export { store, persistor, reactReduxFirebaseProps };

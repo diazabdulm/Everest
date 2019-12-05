@@ -1,15 +1,16 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import { Lock as LockIcon } from "@material-ui/icons";
-
-import { signInWithGoogle } from "../../redux/user.module";
+import { useFirebase } from "react-redux-firebase";
 
 import useStyles from "./sign-in.styles";
 
 const SignInPage = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const firebase = useFirebase();
+
+  const signInWithGoogle = () =>
+    firebase.login({ provider: "google", type: "popup" });
 
   return (
     <div className={classes.container}>
@@ -18,7 +19,7 @@ const SignInPage = () => {
         color="primary"
         className={classes.button}
         startIcon={<LockIcon />}
-        onClick={() => dispatch(signInWithGoogle())}
+        onClick={signInWithGoogle}
       >
         Sign In with Google
       </Button>

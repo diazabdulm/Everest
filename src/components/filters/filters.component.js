@@ -18,6 +18,7 @@ const projectId = 0; // Tasks entered will be added to Inbox
 
 export const AllTasks = () => {
   const tasks = useSelector(selectAllTasks);
+  
 
   return <TaskList projectName="All" projectId={projectId} tasks={tasks} />;
 };

@@ -1,22 +1,31 @@
-import React, { useEffect, Fragment } from "react";
-import { useDispatch } from "react-redux";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
+import { useFirestoreConnect, isLoaded, isEmpty } from "react-redux-firebase";
 
-import PublicRoute from '../public-route/public-route.component'
+import PublicRoute from "../public-route/public-route.component";
 import PrivateRoute from "../private-route/private-route.component";
 
 import SignInPage from "../../pages/sign-in/sign-in.component";
 import TasksPage from "../../pages/tasks/tasks.component";
 
-import { isUserAuthenticated } from "../../redux/user.module";
-import { fetchTasks } from "../../redux/tasks.module";
-
 const App = () => {
-  const dispatch = useDispatch();
+  const auth = useSelector(state => state.firebase.auth);
+  const userId = useSelector(state => state.firebase.auth.uid);
+  const name = "Capt. Janeway";
 
-  useEffect(() => {
-    dispatch(isUserAuthenticated());
-    dispatch(fetchTasks());
-  }, [dispatch]);
+  if (isLoaded(auth)) {
+  }
+  // sync redux with firebase data automatically
+  useFirestoreConnect([
+    {
+      collection: "projects",
+      where: ["userId", "==", "pugvLISPU6YNoKPRk9r44QpF9la2"]
+    },
+    {
+      collection: "tasks",
+      where: ["userId", "==", "pugvLISPU6YNoKPRk9r44QpF9la2"]
+    }
+  ]);
 
   return (
     <Fragment>

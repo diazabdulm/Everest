@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useFirebase, useFirestoreConnect } from "react-redux-firebase";
 
 import Header from "../../components/header/header.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
@@ -14,8 +16,8 @@ import {
 import useStyles from "./tasks.styles";
 
 const TasksPage = () => {
-  const { path } = useRouteMatch();
   const classes = useStyles();
+  const { path } = useRouteMatch();
 
   return (
     <div className={classes.container}>

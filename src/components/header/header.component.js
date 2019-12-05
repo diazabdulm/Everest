@@ -11,15 +11,18 @@ import {
   Menu as MenuIcon,
   ExitToApp as ExitToAppIcon
 } from "@material-ui/icons";
+import { useFirebase } from "react-redux-firebase";
 
 import { toggleDrawer } from "../../redux/drawer.module";
-import { signOut } from "../../redux/user.module";
 
 import useStyles from "./header.styles";
 
 const Header = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const firebase = useFirebase();
+
+  const logout = () => firebase.logout();
 
   return (
     <AppBar position="fixed" className={classes.appbar}>
@@ -36,11 +39,7 @@ const Header = () => {
         <Typography variant="h6" className={classes.title}>
           Everest
         </Typography>
-        <Button
-          color="inherit"
-          startIcon={<ExitToAppIcon />}
-          onClick={() => dispatch(signOut())}
-        >
+        <Button color="inherit" startIcon={<ExitToAppIcon />} onClick={logout}>
           Sign Out
         </Button>
       </Toolbar>
