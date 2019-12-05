@@ -1,6 +1,6 @@
 # Everest
 
-A ReactJS-based to-do list application. Allows you to sign in and store tasks in their respective categories/projects (e.g. Work, School, Family, etc). Tasks get processed through Natural Language Processing for date parsing and filtering. 
+A ReactJS-based to-do list application. Allows you to create tasks in their respective categories/projects (e.g. Work, School, Family, etc). Tasks get processed through Natural Language Processing for date parsing and filtering. And sign-in for seamless data persistence.
 
 # Inspiration
 
