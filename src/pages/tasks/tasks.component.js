@@ -23,11 +23,13 @@ const TasksPage = () => {
   useFirestoreConnect([
     {
       collection: "projects",
-      where: ["userId", "==", userId]
+      where: ["userId", "==", userId],
+      orderBy: ["createdAt"]
     },
     {
       collection: "tasks",
-      where: ["userId", "==", userId]
+      where: ["userId", "==", userId],
+      orderBy: ["createdAt"]
     }
   ]);
 

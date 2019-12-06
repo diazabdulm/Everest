@@ -13,7 +13,7 @@ const Task = ({ id, name, date }) => {
 
   const formatDate = (() =>
     date
-      ? moment(date.toDate()).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      ? moment(date.toDate()).format("ddd, MMM D YYYY, h:mm A")
       : "")();
 
   const removeTask = () =>
