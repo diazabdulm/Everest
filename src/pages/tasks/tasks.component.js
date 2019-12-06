@@ -24,6 +24,10 @@ const TasksPage = () => {
     {
       collection: "projects",
       where: ["userId", "==", userId]
+    },
+    {
+      collection: "tasks",
+      where: ["userId", "==", userId]
     }
   ]);
 

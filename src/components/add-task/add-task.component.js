@@ -1,36 +1,28 @@
 import React, { useState } from "react";
-import v4 from 'uuid/v4'
-import { useDispatch } from "react-redux";
-import { Fab } from "@material-ui/core";
-import { Add as AddIcon } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
-import TextField from "@material-ui/core/TextField";
-
-import useStyles from "./add-task.styles";
-
-import { addTaskAsync } from "../../redux/tasks.module";
+import { TextField } from "@material-ui/core";
 
 const AddTask = ({ projectId }) => {
   const [name, setName] = useState("");
-  const classes = useStyles();
-  const dispatch = useDispatch();
   const firestore = useFirestore();
+  const userId = useSelector(state => state.firebase.auth.uid);
 
-  const addTodo = () => null;
+  const handleNameChange = event => setName(event.target.value);
 
-  const handleChange = event => setName(event.target.value);
-
-  const handleKeyPress = event => {
+  const handleTaskAdd = event => {
     if (event.key === "Enter") {
-      const data = { id: v4(), name, projectId }
-      alert(name)
+      return firestore
+        .collection("tasks")
+        .add({
+          name: name.trim(),
+          createdAt: firestore.FieldValue.serverTimestamp(),
+          projectId,
+          userId
+        })
+        .then(() => setName(""))
+        .catch(() => alert("An error occurred. Please try again later."));
     }
-  }
-
-  const handleAddTask = () => {
-    const text = window.prompt(`What's the name of the task?`);
-    if (!text) return;
-    dispatch(addTaskAsync(text, projectId));
   };
 
   return (
@@ -39,8 +31,8 @@ const AddTask = ({ projectId }) => {
       label="Add Task"
       variant="filled"
       fullWidth
-      onChange={handleChange}
-      onKeyPress={handleKeyPress}
+      onChange={handleNameChange}
+      onKeyPress={handleTaskAdd}
     />
   );
 };

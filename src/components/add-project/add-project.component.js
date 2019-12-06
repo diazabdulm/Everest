@@ -20,9 +20,9 @@ const AddProject = () => {
   const firestore = useFirestore();
   const userId = useSelector(state => state.firebase.auth.uid);
 
-  const handleClickOpen = () => setOpen(true);
+  const handleDialogOpen = () => setOpen(true);
 
-  const handleClose = () => {
+  const handleDialogClose = () => {
     setName("");
     setOpen(false);
   };
@@ -37,13 +37,13 @@ const AddProject = () => {
         name: name.trim(),
         createdAt: firestore.FieldValue.serverTimestamp()
       })
-      .then(() => handleClose())
+      .then(() => handleDialogClose())
       .catch(() => alert("An error occurred. Please try again later."));
   };
 
   return (
     <Fragment>
-      <ListItem button onClick={handleClickOpen}>
+      <ListItem button onClick={handleDialogOpen}>
         <ListItemIcon>
           <AddIcon />
         </ListItemIcon>
@@ -51,7 +51,7 @@ const AddProject = () => {
       </ListItem>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={handleDialogClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Add Project</DialogTitle>
@@ -69,7 +69,7 @@ const AddProject = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleDialogClose} color="primary">
             Cancel
           </Button>
           <Button
