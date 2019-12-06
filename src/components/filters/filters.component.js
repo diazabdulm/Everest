@@ -6,7 +6,7 @@ import {
   selectAllTasks,
   selectTodayTasks,
   selectWeekTasks,
-  selectInboxTasks,
+  selectInboxTasks
 } from "../../redux/tasks.module";
 
 import TaskList from "../task-list/task-list.component";
@@ -40,19 +40,19 @@ export const InboxTasks = () => {
 };
 
 export const ProjectTasks = () => {
-  const { projectId: selectedProjectId } = useParams();
+  const { projectId } = useParams();
   const { name: projectName } = useSelector(
-    state => state.firestore.data.projects[selectedProjectId]
+    state => state.firestore.data.projects[projectId]
   );
   const tasks = useSelector(state => state.firestore.ordered.tasks);
   const projectTasks = tasks.filter(
-    ({ taskProjectId }) => taskProjectId === selectedProjectId
+    ({ projectId: taskProjectId }) => taskProjectId === projectId
   );
 
   return (
     <TaskList
       projectName={projectName}
-      projectId={selectedProjectId}
+      projectId={projectId}
       tasks={projectTasks}
     />
   );

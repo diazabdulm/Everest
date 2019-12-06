@@ -7,7 +7,7 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-const Task = ({ id, text }) => {
+const Task = ({ id, name }) => {
   const firestore = useFirestore();
 
   const removeTask = () =>
@@ -25,10 +25,10 @@ const Task = ({ id, text }) => {
           edge="start"
           checked={false}
           disableRipple
-          inputProps={{ "aria-labelledby": text }}
+          inputProps={{ "aria-labelledby": name }}
         />
       </ListItemIcon>
-      <ListItemText primary={text} />
+      <ListItemText primary={name} />
     </ListItem>
   );
 };
