@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { useFirestore } from "react-redux-firebase";
 import {
   Checkbox,
@@ -7,8 +8,13 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-const Task = ({ id, name }) => {
+const Task = ({ id, name, date }) => {
   const firestore = useFirestore();
+
+  const formatDate = (() =>
+    date
+      ? moment(date.toDate()).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      : "")();
 
   const removeTask = () =>
     firestore
@@ -28,7 +34,7 @@ const Task = ({ id, name }) => {
           inputProps={{ "aria-labelledby": name }}
         />
       </ListItemIcon>
-      <ListItemText primary={name} />
+      <ListItemText primary={name} secondary={formatDate} />
     </ListItem>
   );
 };
