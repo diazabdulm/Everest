@@ -10,7 +10,6 @@ import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
 import firebase from "../firebase/firebase.utils";
 
 import drawerReducer from "./drawer.module";
-import tasksReducer from "./tasks.module";
 
 const reactReduxFirebaseConfig = {};
 
@@ -27,7 +26,6 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   drawer: drawerReducer,
-  tasks: tasksReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer
 });

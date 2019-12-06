@@ -13,14 +13,6 @@ const AddTask = ({ projectId }) => {
 
   const handleTaskAdd = event => {
     if (event.key === "Enter") {
-      const newTask = {
-        userId,
-        projectId,
-        name: name.trim(),
-        date: chrono.parseDate(name),
-        createdAt: firestore.FieldValue.serverTimestamp()
-      };
-
       return firestore
         .collection("tasks")
         .add({
@@ -38,8 +30,8 @@ const AddTask = ({ projectId }) => {
   return (
     <TextField
       id="outlined-basic"
-      label="Add Task"
       variant="filled"
+      placeholder="Add task to this project"
       fullWidth
       onChange={handleNameChange}
       onKeyPress={handleTaskAdd}

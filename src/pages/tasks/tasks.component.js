@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useFirebase, useFirestoreConnect } from "react-redux-firebase";
+import { useFirestoreConnect } from "react-redux-firebase";
 
-import Header from "../../components/header/header.component";
 import Sidebar from "../../components/sidebar/sidebar.component";
 import {
   AllTasks,
@@ -35,7 +34,6 @@ const TasksPage = () => {
 
   return (
     <div className={classes.container}>
-      <Header />
       <Sidebar />
       <Switch>
         <Route exact path={`${path}/all`} component={AllTasks} />

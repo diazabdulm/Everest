@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
-  selectAllTasks,
   selectTodayTasks,
   selectWeekTasks,
   selectInboxTasks
@@ -11,32 +10,42 @@ import {
 
 import TaskList from "../task-list/task-list.component";
 
-const projectId = 0; // Tasks entered will be added to Inbox
+const InboxProjectId = 0;
 
 export const AllTasks = () => {
-  const tasks = useSelector(selectAllTasks);
+  const tasks = useSelector(state => state.firestore.ordered.tasks);
 
-  return <TaskList projectName="All" projectId={projectId} tasks={tasks} />;
+  return (
+    <TaskList projectName="All" projectId={InboxProjectId} tasks={tasks} />
+  );
 };
 
 export const TodayTasks = () => {
   const tasks = useSelector(selectTodayTasks);
 
-  return <TaskList projectName="Today" projectId={projectId} tasks={tasks} />;
+  return (
+    <TaskList projectName="Today" projectId={InboxProjectId} tasks={tasks} />
+  );
 };
 
 export const WeekTasks = () => {
   const tasks = useSelector(selectWeekTasks);
 
   return (
-    <TaskList projectName="Next 7 Days" projectId={projectId} tasks={tasks} />
+    <TaskList
+      projectName="Next 7 Days"
+      projectId={InboxProjectId}
+      tasks={tasks}
+    />
   );
 };
 
 export const InboxTasks = () => {
   const tasks = useSelector(selectInboxTasks);
 
-  return <TaskList projectName="Inbox" projectId={projectId} tasks={tasks} />;
+  return (
+    <TaskList projectName="Inbox" projectId={InboxProjectId} tasks={tasks} />
+  );
 };
 
 export const ProjectTasks = () => {

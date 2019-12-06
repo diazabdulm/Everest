@@ -6,17 +6,19 @@ import {
   Divider,
   Drawer,
   Hidden,
+  Avatar,
   List,
   ListItem,
+  ListItemAvatar,
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-
 import {
-  InboxTwoTone as InboxIcon,
-  AllInboxTwoTone as AllIcon,
-  EventTwoTone as TodayIcon,
-  DateRangeTwoTone as WeekIcon
+  ExitToApp as SignOutIcon,
+  InboxRounded as InboxIcon,
+  AllInboxRounded as AllIcon,
+  EventRounded as TodayIcon,
+  DateRangeRounded as WeekIcon
 } from "@material-ui/icons";
 
 import ProjectList from "../project-list/project-list.component";
@@ -62,9 +64,14 @@ const Sidebar = () => {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <Divider />
       <List>
+        <ListItem button>
+          <ListItemAvatar>
+            <Avatar>A{/* <ImageIcon /> */}</Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Abdul Diaz" />
+          <SignOutIcon />
+        </ListItem>
         {directory.map(({ id, name, icon, linkUrl }) => (
           <ListItem
             button
@@ -77,6 +84,9 @@ const Sidebar = () => {
             <ListItemText primary={name} />
           </ListItem>
         ))}
+      </List>
+      <Divider variant="middle" />
+      <List>
         <ProjectList />
         <AddProject />
       </List>
