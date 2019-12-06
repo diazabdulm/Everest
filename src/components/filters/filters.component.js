@@ -10,8 +10,6 @@ import {
   selectProjectTasks
 } from "../../redux/tasks.module";
 
-import { selectCurrentProject } from "../../redux/projects.module";
-
 import TaskList from "../task-list/task-list.component";
 
 const projectId = 0; // Tasks entered will be added to Inbox
@@ -44,9 +42,9 @@ export const InboxTasks = () => {
 };
 
 export const ProjectTasks = () => {
-  const { projectId } = useParams();
-  const { text } = useSelector(state => selectCurrentProject(state, projectId));
-  const tasks = useSelector(state => selectProjectTasks(state, projectId));
+  // const { projectId } = useParams();
+  // const { text } = useSelector(state => selectCurrentProject(state, projectId));
+  // const tasks = useSelector(state => selectProjectTasks(state, projectId));
 
-  return <TaskList projectName={text} projectId={projectId} tasks={tasks} />;
+  // return <TaskList projectName={text} projectId={projectId} tasks={tasks} />;
 };

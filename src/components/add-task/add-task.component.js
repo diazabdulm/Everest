@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import chrono from "chrono-node";
 import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import { TextField } from "@material-ui/core";
@@ -12,13 +13,22 @@ const AddTask = ({ projectId }) => {
 
   const handleTaskAdd = event => {
     if (event.key === "Enter") {
+      const newTask = {
+        userId,
+        projectId,
+        name: name.trim(),
+        date: chrono.parseDate(name),
+        createdAt: firestore.FieldValue.serverTimestamp()
+      };
+
       return firestore
         .collection("tasks")
         .add({
-          name: name.trim(),
-          createdAt: firestore.FieldValue.serverTimestamp(),
+          userId,
           projectId,
-          userId
+          name: name.trim(),
+          date: chrono.parseDate(name),
+          createdAt: firestore.FieldValue.serverTimestamp()
         })
         .then(() => setName(""))
         .catch(() => alert("An error occurred. Please try again later."));
@@ -33,6 +43,7 @@ const AddTask = ({ projectId }) => {
       fullWidth
       onChange={handleNameChange}
       onKeyPress={handleTaskAdd}
+      value={name}
     />
   );
 };

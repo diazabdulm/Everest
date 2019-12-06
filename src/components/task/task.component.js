@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useFirestore } from "react-redux-firebase";
 import {
   Checkbox,
   ListItem,
@@ -7,18 +7,19 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-import { removeTask } from "../../redux/tasks.module";
-
 const Task = ({ id, text }) => {
-  const dispatch = useDispatch();
+  const firestore = useFirestore();
+
+  const removeTask = () =>
+    firestore
+      .collection("tasks")
+      .doc(id)
+      .delete()
+      .then(() => null)
+      .catch(() => alert("Task could not be deleted. Please try again later"));
 
   return (
-    <ListItem
-      dense
-      button
-      disableGutters
-      onClick={() => dispatch(removeTask(id))}
-    >
+    <ListItem dense button disableGutters onClick={removeTask}>
       <ListItemIcon>
         <Checkbox
           edge="start"
