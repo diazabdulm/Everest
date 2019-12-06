@@ -30,31 +30,3 @@ export const selectWeekTasks = createSelector([selectAllTasks], tasks => {
 export const selectInboxTasks = createSelector([selectAllTasks], tasks =>
   tasks.filter(task => task.projectId === 0)
 );
-
-export const selectProjectTasks = (state, currentProjectId) => {
-  return state.tasks.filter(task => task.projectId === currentProjectId);
-};
-
-export const addTaskAsync = (text, projectId) => {
-  return async (dispatch, getState, getFirebase) => {
-    try {
-      const userId = getState().user.currentUser.id;
-      const taskId = v4();
-      const tasksRef = firestore
-        .collection("users")
-        .doc(userId)
-        .collection("tasks");
-      const newTaskRef = tasksRef.doc(taskId);
-      const newTaskData = {
-        id: taskId,
-        date: chrono.parseDate(text),
-        text,
-        projectId
-      };
-      await newTaskRef.set(newTaskData);
-      dispatch(addTask(newTaskData));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};

@@ -7,7 +7,6 @@ import {
   selectTodayTasks,
   selectWeekTasks,
   selectInboxTasks,
-  selectProjectTasks
 } from "../../redux/tasks.module";
 
 import TaskList from "../task-list/task-list.component";
