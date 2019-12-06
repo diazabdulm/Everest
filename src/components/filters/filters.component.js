@@ -16,7 +16,6 @@ const projectId = 0; // Tasks entered will be added to Inbox
 
 export const AllTasks = () => {
   const tasks = useSelector(selectAllTasks);
-  
 
   return <TaskList projectName="All" projectId={projectId} tasks={tasks} />;
 };
@@ -42,9 +41,20 @@ export const InboxTasks = () => {
 };
 
 export const ProjectTasks = () => {
-  // const { projectId } = useParams();
-  // const { text } = useSelector(state => selectCurrentProject(state, projectId));
-  // const tasks = useSelector(state => selectProjectTasks(state, projectId));
+  const { projectId: selectedProjectId } = useParams();
+  const { name: projectName } = useSelector(
+    state => state.firestore.data.projects[selectedProjectId]
+  );
+  const tasks = useSelector(state => state.firestore.ordered.tasks);
+  const projectTasks = tasks.filter(
+    ({ taskProjectId }) => taskProjectId === selectedProjectId
+  );
 
-  // return <TaskList projectName={text} projectId={projectId} tasks={tasks} />;
+  return (
+    <TaskList
+      projectName={projectName}
+      projectId={selectedProjectId}
+      tasks={projectTasks}
+    />
+  );
 };

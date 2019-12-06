@@ -4,35 +4,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import moment from "moment";
 
-import {
-  firestore,
-  convertTasksSnapshotToMap
-} from "../firebase/firebase.utils";
+import { firestore } from "../firebase/firebase.utils";
 
 const tasks = createSlice({
   name: "tasks",
-  initialState: [],
-  reducers: {
-    addTask: {
-      reducer: (state, action) => {
-        state.push(action.payload);
-      },
-      prepare: ({ text, projectId }) => ({
-        payload: {
-          id: v4(),
-          date: chrono.parseDate(text),
-          text,
-          projectId
-        }
-      })
-    },
-    removeTask: (state, action) =>
-      state.filter(task => task.id !== action.payload),
-    setTasks: (state, action) => {
-      state = action.payload;
-      return state;
-    }
-  }
+  initialState: []
 });
 
 export const { addTask, removeTask, setTasks } = tasks.actions;
