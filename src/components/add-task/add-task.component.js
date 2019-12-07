@@ -29,13 +29,14 @@ const AddTask = ({ projectId }) => {
 
   return (
     <TextField
-      id="outlined-basic"
       variant="filled"
       placeholder="Add task to this project"
       fullWidth
       onChange={handleNameChange}
       onKeyPress={handleTaskAdd}
       value={name}
+      // label="Hii"
+      InputLabelProps={{ disabled: true }}
     />
   );
 };

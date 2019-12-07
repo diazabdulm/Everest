@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { isLoaded } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { List as ListIcon } from "@material-ui/icons";
+import { ListRounded as ListIcon } from "@material-ui/icons";
 
 const ProjectList = () => {
   const projects = useSelector(state => state.firestore.ordered.projects);

@@ -9,6 +9,13 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("sm")]: {
       display: "none"
     }
+  },
+  headerBar: {
+    display: "flex",
+    alignItems: "center"
+  },
+  projectActions: {
+    flex: 1
   }
 }));
 

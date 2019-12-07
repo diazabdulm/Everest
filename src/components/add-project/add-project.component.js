@@ -12,7 +12,7 @@ import {
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
-import { Add as AddIcon } from "@material-ui/icons";
+import { AddCircle as AddIcon } from "@material-ui/icons";
 
 const AddProject = () => {
   const [open, setOpen] = useState(false);

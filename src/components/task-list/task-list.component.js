@@ -1,7 +1,7 @@
 import React from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { IconButton, Typography } from "@material-ui/core";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { MenuRounded as MenuIcon, MoreHoriz as MoreIcon } from "@material-ui/icons";
 import Task from "../task/task.component";
 import AddTask from "../add-task/add-task.component";
 
@@ -17,18 +17,26 @@ const TaskList = ({ projectName, projectId, tasks }) => {
 
   return (
     <main className={classes.content}>
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        className={classes.menuButton}
-        onClick={() => dispatch(toggleDrawer())}
-      >
-        <MenuIcon />
-      </IconButton>
-      <Typography variant="h5" gutterBottom>
-        {projectName}
-      </Typography>
+      <div className={classes.headerBar}>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          className={classes.menuButton}
+          onClick={() => dispatch(toggleDrawer())}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h5">{projectName}</Typography>
+        <IconButton
+          color="inherit"
+          aria-label="open project actions"
+          edge="end"
+          className={classes.projectActions}
+        >
+          <MoreIcon />
+        </IconButton>
+      </div>
       <AddTask projectId={projectId} />
       {tasks.map(({ id, ...otherProps }) => (
         <Task key={id} id={id} {...otherProps} />
