@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const drawer = createSlice({
+const drawerSlice = createSlice({
   name: "drawer",
   initialState: {
     open: false,
@@ -13,6 +13,6 @@ const drawer = createSlice({
   }
 });
 
-export const { toggleDrawer } = drawer.actions;
+export const { toggleDrawer } = drawerSlice.actions;
 
-export default drawer.reducer;
+export default drawerSlice.reducer;

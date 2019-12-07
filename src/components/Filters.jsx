@@ -6,9 +6,9 @@ import {
   selectTodayTasks,
   selectWeekTasks,
   selectInboxTasks
-} from "../../redux/tasks.module";
+} from "../redux/tasksSlice";
 
-import TaskList from "../task-list/task-list.component";
+import TaskList from "./TaskList";
 
 const InboxProjectId = 0;
 

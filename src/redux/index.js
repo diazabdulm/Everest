@@ -7,9 +7,9 @@ import logger from "redux-logger";
 import { firebaseReducer } from "react-redux-firebase";
 import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
 
-import firebase from "../firebase/firebase.utils";
+import firebase from "../common/firebase.utils";
 
-import drawerReducer from "./drawer.module";
+import drawerReducer from "./drawerSlice";
 
 const reactReduxFirebaseConfig = {};
 

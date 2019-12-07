@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  makeStyles,
   useTheme,
   Divider,
   Drawer,
@@ -21,12 +22,30 @@ import {
   DateRangeRounded as WeekIcon
 } from "@material-ui/icons";
 
-import ProjectList from "../project-list/project-list.component";
-import AddProject from "../add-project/add-project.component";
+import ProjectList from "./SidebarProjectList";
+import AddProject from "./SidebarAddProject";
 
-import useStyles from "./sidebar.styles";
+import { toggleDrawer } from "../redux/drawerSlice";
 
-import { toggleDrawer } from "../../redux/drawer.module";
+const useStyles = makeStyles(theme => ({
+  toolbar: theme.mixins.toolbar,
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: props => props.drawerWidth,
+      flexShrink: 0
+    },
+    background: theme.palette.grey.A400
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    ...theme.mixins.toolbar
+  },
+  drawerPaper: {
+    width: props => props.drawerWidth
+  }
+}));
 
 const Sidebar = () => {
   const drawerOpen = useSelector(state => state.drawer.open);

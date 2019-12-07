@@ -3,16 +3,22 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 
-import Sidebar from "../../components/sidebar/sidebar.component";
+import Sidebar from "../components/Sidebar";
 import {
   AllTasks,
   TodayTasks,
   WeekTasks,
   InboxTasks,
   ProjectTasks
-} from "../../components/filters/filters.component";
+} from "../components/Filters";
 
-import useStyles from "./tasks.styles";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex"
+  }
+}));
 
 const TasksPage = () => {
   const classes = useStyles();

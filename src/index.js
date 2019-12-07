@@ -8,9 +8,9 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 // import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
 
-import { store, persistor, reactReduxFirebaseProps } from "./redux/root.module";
+import { store, persistor, reactReduxFirebaseProps } from "./redux";
 
-import App from "./components/app/app.component";
+import App from "./App";
 
 const theme = createMuiTheme({
   palette: {

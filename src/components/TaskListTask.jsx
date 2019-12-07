@@ -12,9 +12,7 @@ const Task = ({ id, name, date }) => {
   const firestore = useFirestore();
 
   const formatDate = (() =>
-    date
-      ? moment(date.toDate()).format("ddd, MMM D YYYY, h:mm A")
-      : "")();
+    date ? moment(date.toDate()).format("ddd, MMM D YYYY, h:mm A") : "")();
 
   const removeTask = () =>
     firestore

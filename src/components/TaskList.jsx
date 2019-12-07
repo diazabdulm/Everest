@@ -1,13 +1,33 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { IconButton, Typography } from "@material-ui/core";
-import { MenuRounded as MenuIcon, MoreHoriz as MoreIcon } from "@material-ui/icons";
-import Task from "../task/task.component";
-import AddTask from "../add-task/add-task.component";
+import { makeStyles, IconButton, Typography } from "@material-ui/core";
+import {
+  MenuRounded as MenuIcon,
+  MoreHoriz as MoreIcon
+} from "@material-ui/icons";
+import Task from "./TaskListTask";
+import AddTask from "./TaskListAddTask";
 
-import { toggleDrawer } from "../../redux/drawer.module";
+import { toggleDrawer } from "../redux/drawerSlice";
 
-import useStyles from "./task-list.styles";
+const useStyles = makeStyles(theme => ({
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3)
+  },
+  menuButton: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
+  },
+  headerBar: {
+    display: "flex",
+    alignItems: "center"
+  },
+  projectActions: {
+    flex: 1
+  }
+}));
 
 const TaskList = ({ projectName, projectId, tasks }) => {
   const classes = useStyles();
