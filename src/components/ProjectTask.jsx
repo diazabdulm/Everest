@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useFirestore } from "react-redux-firebase";
 import {
@@ -8,11 +8,15 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-const Task = ({ id, name, date }) => {
+import formatDate from "../common/formatDate";
+
+const ProjectTask = ({ id, name, date }) => {
+  const [formattedDate, setFormattedDate] = useState("");
   const firestore = useFirestore();
 
-  const formatDate = (() =>
-    date ? moment(date.toDate()).format("ddd, MMM D YYYY, h:mm A") : "")();
+  useEffect(() => {
+    setFormattedDate(formatDate(date));
+  }, [date]);
 
   const removeTask = () =>
     firestore
@@ -23,7 +27,7 @@ const Task = ({ id, name, date }) => {
       .catch(() => alert("Task could not be deleted. Please try again later"));
 
   return (
-    <ListItem dense button disableGutters onClick={removeTask}>
+    <ListItem dense button disableGutters onClick={removeTask} divider>
       <ListItemIcon>
         <Checkbox
           edge="start"
@@ -32,9 +36,9 @@ const Task = ({ id, name, date }) => {
           inputProps={{ "aria-labelledby": name }}
         />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={formatDate} />
+      <ListItemText primary={name} secondary={formattedDate} />
     </ListItem>
   );
 };
 
-export default Task;
+export default ProjectTask;

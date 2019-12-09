@@ -9,8 +9,6 @@ import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
 
 import firebase from "../common/firebase.utils";
 
-import drawerReducer from "./drawerSlice";
-
 const reactReduxFirebaseConfig = {};
 
 const middlewares = [];
@@ -25,7 +23,6 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  drawer: drawerReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer
 });

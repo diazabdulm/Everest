@@ -2,11 +2,22 @@ import React, { useState } from "react";
 import chrono from "chrono-node";
 import { useSelector } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
-import { TextField } from "@material-ui/core";
+import { makeStyles, TextField } from "@material-ui/core";
 
-const AddTask = ({ projectId }) => {
+const useStyles = makeStyles(theme => ({
+  textField: {
+    marginBottom: theme.spacing(2),
+  },
+  input: {
+    padding: theme.spacing(2),
+    borderRadius: "4px"
+  }
+}));
+
+const ProjectAddTask = ({ projectId }) => {
   const [name, setName] = useState("");
   const firestore = useFirestore();
+  const classes = useStyles();
   const userId = useSelector(state => state.firebase.auth.uid);
 
   const handleNameChange = event => setName(event.target.value);
@@ -30,15 +41,20 @@ const AddTask = ({ projectId }) => {
   return (
     <TextField
       variant="filled"
-      placeholder="Add task to this project"
+      placeholder="Add a task..."
       fullWidth
       onChange={handleNameChange}
       onKeyPress={handleTaskAdd}
       value={name}
-      // label="Hii"
-      InputLabelProps={{ disabled: true }}
+      InputProps={{
+        disableUnderline: true,
+        classes: {
+          input: classes.input
+        }
+      }}
+      className={classes.textField}
     />
   );
 };
 
-export default AddTask;
+export default ProjectAddTask;

@@ -5,13 +5,8 @@ import { useFirebase } from "react-redux-firebase";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh"
-  },
-  button: {
-    margin: theme.spacing(1)
+    alignItems: "center"
   }
 }));
 
@@ -27,7 +22,6 @@ const SignInPage = () => {
       <Button
         variant="contained"
         color="primary"
-        className={classes.button}
         startIcon={<LockIcon />}
         onClick={signInWithGoogle}
       >

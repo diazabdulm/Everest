@@ -14,6 +14,7 @@ import {
   ListItemIcon,
   ListItemText
 } from "@material-ui/core";
+
 import {
   ExitToApp as SignOutIcon,
   InboxRounded as InboxIcon,
@@ -25,33 +26,25 @@ import {
 import ProjectList from "./SidebarProjectList";
 import AddProject from "./SidebarAddProject";
 
-import { toggleDrawer } from "../redux/drawerSlice";
+const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
-  toolbar: theme.mixins.toolbar,
   drawer: {
     [theme.breakpoints.up("sm")]: {
-      width: props => props.drawerWidth,
+      width: drawerWidth,
       flexShrink: 0
     },
     background: theme.palette.grey.A400
   },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    ...theme.mixins.toolbar
-  },
   drawerPaper: {
-    width: props => props.drawerWidth
+    width: drawerWidth
   }
 }));
 
-const Sidebar = () => {
+const Sidebar = ({ toggleDrawer }) => {
   const drawerOpen = useSelector(state => state.drawer.open);
-  const drawerWidth = useSelector(state => state.drawer.width);
   const dispatch = useDispatch();
-  const classes = useStyles({ drawerWidth });
+  const classes = useStyles();
   const theme = useTheme();
 
   const directory = [
@@ -119,7 +112,8 @@ const Sidebar = () => {
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
           open={drawerOpen}
-          onClose={() => dispatch(toggleDrawer())}
+          onClose={toggleDrawer}
+          onClick={toggleDrawer}
           classes={{
             paper: classes.drawerPaper
           }}
@@ -130,7 +124,7 @@ const Sidebar = () => {
           {drawer}
         </Drawer>
       </Hidden>
-      <Hidden xsDown implementation="css">
+      <Hidden xsDown implementation="js">
         <Drawer
           classes={{
             paper: classes.drawerPaper

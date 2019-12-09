@@ -1,29 +1,20 @@
-import React from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useFirestoreConnect } from "react-redux-firebase";
 
+import useTasks from "../hooks/useTasks";
+
 import Sidebar from "../components/Sidebar";
-import {
-  AllTasks,
-  TodayTasks,
-  WeekTasks,
-  InboxTasks,
-  ProjectTasks
-} from "../components/Filters";
-
-import { makeStyles } from "@material-ui/core";
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex"
-  }
-}));
+import Project from "../components/Project";
 
 const TasksPage = () => {
-  const classes = useStyles();
-  const { path } = useRouteMatch();
+  const { projectId } = useParams();
   const userId = useSelector(state => state.firebase.auth.uid);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const tasks = useTasks(projectId);
+
+  const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
   useFirestoreConnect([
     {
@@ -34,21 +25,15 @@ const TasksPage = () => {
     {
       collection: "tasks",
       where: ["userId", "==", userId],
-      orderBy: ["createdAt"]
+      orderBy: ["createdAt", "desc"]
     }
   ]);
 
   return (
-    <div className={classes.container}>
-      <Sidebar />
-      <Switch>
-        <Route exact path={`${path}/all`} component={AllTasks} />
-        <Route exact path={`${path}/today`} component={TodayTasks} />
-        <Route exact path={`${path}/week`} component={WeekTasks} />
-        <Route exact path={`${path}/inbox`} component={InboxTasks} />
-        <Route exact path={`${path}/:projectId`} component={ProjectTasks} />
-      </Switch>
-    </div>
+    <Fragment>
+      <Sidebar toggleDrawer={handleDrawerToggle} />
+      <Project toggleDrawer={handleDrawerToggle} projectId={projectId} />
+    </Fragment>
   );
 };
 
