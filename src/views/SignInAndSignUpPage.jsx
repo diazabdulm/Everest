@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: theme.spacing(8)
+    margin: theme.spacing(8, 0),
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.primary.main
   },
   button: { margin: theme.spacing(3, 0, 2) },
   textWithLineBehind: {
@@ -47,7 +47,8 @@ const useStyles = makeStyles(theme => ({
       background: theme.palette.background.default,
       padding: theme.spacing(0, 2),
       position: "relative",
-      zIndex: "1"
+      zIndex: "1",
+      textTransform: "uppercase"
     }
   }
 }));
@@ -77,8 +78,7 @@ const SignInAndSignUpPage = () => {
           <span>or</span>
         </Typography>
         <Button
-          variant="contained"
-          color="secondary"
+          variant="outlined"
           onClick={googleSignInStart}
           className={classes.button}
           fullWidth

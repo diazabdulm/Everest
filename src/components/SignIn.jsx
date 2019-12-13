@@ -52,7 +52,7 @@ const SignIn = ({ toggleSignIn }) => {
       <Typography variant="h5">Sign In</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth
@@ -61,11 +61,12 @@ const SignIn = ({ toggleSignIn }) => {
           label="Email Address"
           name="email"
           autoComplete="email"
+          autocorrect="off"
           value={email}
           onChange={handleChange}
         />
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth

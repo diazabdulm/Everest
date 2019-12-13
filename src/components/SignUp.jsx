@@ -53,7 +53,7 @@ const SignUp = ({ toggleSignIn }) => {
       <Typography variant="h5">Sign Up</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth
@@ -64,7 +64,7 @@ const SignUp = ({ toggleSignIn }) => {
           onChange={handleChange}
         />
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth
@@ -76,7 +76,7 @@ const SignUp = ({ toggleSignIn }) => {
           onChange={handleChange}
         />
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth
@@ -88,7 +88,7 @@ const SignUp = ({ toggleSignIn }) => {
           onChange={handleChange}
         />
         <TextField
-          variant="filled"
+          variant="outlined"
           margin="normal"
           required
           fullWidth
