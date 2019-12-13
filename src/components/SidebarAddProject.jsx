@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { useFirestore } from "react-redux-firebase";
+// import { useFirestore } from "react-redux-firebase";
 import {
   Button,
   TextField,
@@ -17,7 +17,7 @@ import { AddCircle as AddIcon } from "@material-ui/icons";
 const AddProject = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
   const userId = useSelector(state => state.firebase.auth.uid);
 
   const handleDialogOpen = () => setOpen(true);
@@ -30,15 +30,15 @@ const AddProject = () => {
   const handleNameChange = event => setName(event.target.value);
 
   const handleProjectAdd = () => {
-    return firestore
-      .collection("projects")
-      .add({
-        userId,
-        name: name.trim(),
-        createdAt: firestore.FieldValue.serverTimestamp()
-      })
-      .then(() => handleDialogClose())
-      .catch(() => alert("An error occurred. Please try again later."));
+    // return firestore
+    //   .collection("projects")
+    //   .add({
+    //     userId,
+    //     name: name.trim(),
+    //     createdAt: firestore.FieldValue.serverTimestamp()
+    //   })
+    //   .then(() => handleDialogClose())
+    //   .catch(() => alert("An error occurred. Please try again later."));
   };
 
   return (

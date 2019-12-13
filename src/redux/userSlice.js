@@ -31,7 +31,7 @@ const user = createSlice({
 
 export const { signInSuccess, signOutSuccess, processError } = user.actions;
 
-export default user;
+export default user.reducer;
 
 export const selectUser = state => state.user;
 
@@ -72,10 +72,22 @@ export const signInWithGoogle = () => async dispatch => {
   }
 };
 
-export const signInWithEmail = ({ email, password }) => async dispatch => {
+export const signInWithEmail = (email, password) => async dispatch => {
   try {
     const { user } = auth.signInWithEmailAndPassword(email, password);
     dispatch(getSnapShotFromUserAuth(user));
+  } catch (error) {
+    dispatch(processError(error));
+  }
+};
+
+export const signInAfterSignUp = (user, additionalData) => async dispatch =>
+  dispatch(getSnapShotFromUserAuth(user, additionalData));
+
+export const signUp = (displayName, email, password) => async dispatch => {
+  try {
+    const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    dispatch(signInAfterSignUp(user, displayName));
   } catch (error) {
     dispatch(processError(error));
   }

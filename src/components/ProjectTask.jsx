@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { useFirestore } from "react-redux-firebase";
+// import { useFirestore } from "react-redux-firebase";
 import {
   Checkbox,
   ListItem,
@@ -12,19 +12,19 @@ import formatDate from "../common/formatDate";
 
 const ProjectTask = ({ id, name, date }) => {
   const [formattedDate, setFormattedDate] = useState("");
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
 
   useEffect(() => {
     setFormattedDate(formatDate(date));
   }, [date]);
 
-  const removeTask = () =>
-    firestore
-      .collection("tasks")
-      .doc(id)
-      .delete()
-      .then(() => null)
-      .catch(() => alert("Task could not be deleted. Please try again later"));
+  const removeTask = () => null;
+    // firestore
+    //   .collection("tasks")
+    //   .doc(id)
+    //   .delete()
+    //   .then(() => null)
+    //   .catch(() => alert("Task could not be deleted. Please try again later"));
 
   return (
     <ListItem dense button disableGutters onClick={removeTask} divider>

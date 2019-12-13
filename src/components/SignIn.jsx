@@ -1,34 +1,48 @@
 import React, { Fragment, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Typography, TextField, Button } from "@material-ui/core";
+import {
+  makeStyles,
+  Typography,
+  TextField,
+  Button,
+  Link
+} from "@material-ui/core";
 
-import { signInWithGoogle, signInWithEmail } from "../redux/userSlice";
+import { signInWithEmail } from "../redux/userSlice";
 
-const SignIn = () => {
+const useStyles = makeStyles(theme => ({
+  button: {
+    marginTop: theme.spacing(3)
+  },
+  link: {
+    display: "block",
+    margin: theme.spacing(3, 0)
+  }
+}));
+
+const SignIn = ({ toggleSignIn }) => {
   const [userCredentials, setCredentials] = useState({
     email: "",
     password: ""
   });
   const dispatch = useDispatch();
-  const googleSignInStart = useCallback(() => dispatch(signInWithGoogle()), [
-    dispatch
-  ]);
+  const classes = useStyles();
 
   const { email, password } = userCredentials;
 
-  handleChange = event => {
+  const handleChange = event => {
     const { value, name } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
   };
 
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    dispatch(signInWithEmail({ email, password }));
+    dispatch(signInWithEmail(email, password));
   };
 
   return (
     <Fragment>
-      <Typography component="h1">Sign In</Typography>
+      <Typography variant="h5">Sign In</Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           variant="filled"
@@ -39,7 +53,7 @@ const SignIn = () => {
           label="Email Address"
           name="email"
           autoComplete="email"
-          autoFocus
+          defaultValue="testaccount@email.com"
           onChange={handleChange}
         />
         <TextField
@@ -52,14 +66,27 @@ const SignIn = () => {
           name="password"
           type="password"
           autoComplete="current-password"
+          defaultValue="testpassword"
           onChange={handleChange}
         />
-        <Button variant="contained" color="primary" type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          fullWidth
+          className={classes.button}
+        >
           Sign In
         </Button>
-        <Button variant="outlined" type="button" onClick={googleSignInStart}>
-          Sign In With Google
-        </Button>
+        <Link
+          variant="body2"
+          href="#"
+          align="center"
+          className={classes.link}
+          onClick={toggleSignIn}
+        >
+          Don't have an account? Sign Up
+        </Link>
       </form>
     </Fragment>
   );

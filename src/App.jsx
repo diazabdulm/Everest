@@ -12,7 +12,7 @@ import TasksPage from "./views/Tasks";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: "flex"
+	display: "flex",
   }
 }));
 
@@ -20,7 +20,9 @@ const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(checkUserSession()), [dispatch]);
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

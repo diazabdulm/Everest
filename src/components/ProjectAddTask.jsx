@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import chrono from "chrono-node";
 import { useSelector, useDispatch } from "react-redux";
-import { useFirestore } from "react-redux-firebase";
+// import { useFirestore } from "react-redux-firebase";
 import { makeStyles, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
 const ProjectAddTask = ({ projectId }) => {
   const [name, setName] = useState("");
   const dispatch = useDispatch();
-  const firestore = useFirestore();
+  // const firestore = useFirestore();
   const classes = useStyles();
   const userId = useSelector(state => state.firebase.auth.uid);
 
@@ -25,17 +25,17 @@ const ProjectAddTask = ({ projectId }) => {
 
   const handleTaskAdd = event => {
     if (event.key === "Enter") {
-      return firestore
-        .collection("tasks")
-        .add({
-          userId,
-          projectId,
-          name: name.trim(),
-          date: chrono.parseDate(name),
-          createdAt: firestore.FieldValue.serverTimestamp()
-        })
-        .then(() => setName(""))
-        .catch(() => alert("An error occurred. Please try again later."));
+      // return firestore
+      //   .collection("tasks")
+      //   .add({
+      //     userId,
+      //     projectId,
+      //     name: name.trim(),
+      //     date: chrono.parseDate(name),
+      //     createdAt: firestore.FieldValue.serverTimestamp()
+      //   })
+      //   .then(() => setName(""))
+      //   .catch(() => alert("An error occurred. Please try again later."));
     }
   };
 
