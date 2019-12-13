@@ -45,7 +45,7 @@ export const getSnapShotFromUserAuth = (
   additionalData
 ) => async dispatch => {
   try {
-    const userRef = createUserProfileDocument(userAuth, additionalData);
+    const userRef = await createUserProfileDocument(userAuth, additionalData);
     const userSnapshot = await userRef.get();
     dispatch(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
   } catch (error) {
