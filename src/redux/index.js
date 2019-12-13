@@ -4,12 +4,9 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 
-import { firebaseReducer } from "react-redux-firebase";
-import { createFirestoreInstance, firestoreReducer } from "redux-firestore";
-
-import firebase from "../common/firebase.utils";
-
-const reactReduxFirebaseConfig = {};
+import tasks from "./tasksSlice";
+import projects from "./projectsSlice";
+import user from "./userSlice";
 
 const middlewares = [];
 
@@ -23,8 +20,9 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  firebase: firebaseReducer,
-  firestore: firestoreReducer
+  tasks,
+  projects,
+  user
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -41,11 +39,4 @@ const store = configureStore({
 
 const persistor = persistStore(store);
 
-const reactReduxFirebaseProps = {
-  firebase,
-  config: reactReduxFirebaseConfig,
-  dispatch: store.dispatch,
-  createFirestoreInstance
-};
-
-export { store, persistor, reactReduxFirebaseProps };
+export { store, persistor };

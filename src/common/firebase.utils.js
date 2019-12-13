@@ -2,15 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-const config = {
-  apiKey: "AIzaSyA4IxOY6L0AurRFQ_WkdEAIuLpmamCkTxY",
-  authDomain: "everest-1db20.firebaseapp.com",
-  databaseURL: "https://everest-1db20.firebaseio.com",
-  projectId: "everest-1db20",
-  storageBucket: "everest-1db20.appspot.com",
-  messagingSenderId: "33476943878",
-  appId: "1:33476943878:web:0da7dea4f5243afb7b2387"
-};
+import config from "../constants/firebaseConfig";
 
 firebase.initializeApp(config);
 
@@ -82,7 +74,21 @@ export const convertProjectsSnapshotToMap = projects => {
   return transformedProjectCollection;
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
+
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+export const tasksRef = firestore.collection("tasks");
+export const projectsRef = firestore.collection("projects");
 
 export default firebase;

@@ -34,3 +34,5 @@ const useTasks = projectId => {
 
 	return tasks;
 };
+
+export default useTasks;

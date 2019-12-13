@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignInPage = () => {
+const SignInAndSignUpPage = () => {
   const classes = useStyles();
   const firebase = useFirebase();
 
@@ -31,4 +31,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignInAndSignUpPage;

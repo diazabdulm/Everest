@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import chrono from "chrono-node";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useFirestore } from "react-redux-firebase";
 import { makeStyles, TextField } from "@material-ui/core";
 
@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const ProjectAddTask = ({ projectId }) => {
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
   const firestore = useFirestore();
   const classes = useStyles();
   const userId = useSelector(state => state.firebase.auth.uid);

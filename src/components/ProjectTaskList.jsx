@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 
+import Task from "./ProjectTask";
+
 const ProjectTaskList = ({ tasks }) => {
   return (
     <Fragment>

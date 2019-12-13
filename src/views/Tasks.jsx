@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useFirestoreConnect } from "react-redux-firebase";
 
 import useTasks from "../hooks/useTasks";
 
@@ -15,19 +14,6 @@ const TasksPage = () => {
   const tasks = useTasks(projectId);
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
-
-  useFirestoreConnect([
-    {
-      collection: "projects",
-      where: ["userId", "==", userId],
-      orderBy: ["createdAt"]
-    },
-    {
-      collection: "tasks",
-      where: ["userId", "==", userId],
-      orderBy: ["createdAt", "desc"]
-    }
-  ]);
 
   return (
     <Fragment>

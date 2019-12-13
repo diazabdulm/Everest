@@ -3,33 +3,25 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { ReactReduxFirebaseProvider } from "react-redux-firebase";
-// import darkBaseTheme from "material-ui/styles/baseThemes/darkBaseTheme";
 
-import { store, persistor, reactReduxFirebaseProps } from "./redux";
+import { store, persistor } from "./redux";
+
+import theme from "./constants/theme";
 
 import App from "./App";
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark"
-  }
-});
-
 ReactDOM.render(
   <Provider store={store}>
-    <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-          </MuiThemeProvider>
-        </BrowserRouter>
-      </PersistGate>
-    </ReactReduxFirebaseProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </MuiThemeProvider>
+      </BrowserRouter>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );
