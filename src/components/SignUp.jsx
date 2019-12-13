@@ -61,7 +61,9 @@ const SignUp = ({ toggleSignIn }) => {
           label="Name"
           name="name"
           autoComplete="name"
+          inputProps={{ spellCheck: "false" }}
           onChange={handleChange}
+          value={displayName}
         />
         <TextField
           variant="outlined"
@@ -73,7 +75,9 @@ const SignUp = ({ toggleSignIn }) => {
           label="Email Address"
           name="email"
           autoComplete="email"
+          inputProps={{ spellCheck: "false" }}
           onChange={handleChange}
+          value={email}
         />
         <TextField
           variant="outlined"
@@ -86,6 +90,7 @@ const SignUp = ({ toggleSignIn }) => {
           type="password"
           autoComplete="new-password"
           onChange={handleChange}
+          value={password}
         />
         <TextField
           variant="outlined"
@@ -98,6 +103,7 @@ const SignUp = ({ toggleSignIn }) => {
           type="password"
           autoComplete="new-password"
           onChange={handleChange}
+          value={confirmPassword}
         />
         <Button
           variant="contained"

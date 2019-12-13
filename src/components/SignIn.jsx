@@ -61,7 +61,7 @@ const SignIn = ({ toggleSignIn }) => {
           label="Email Address"
           name="email"
           autoComplete="email"
-          autocorrect="off"
+          inputProps={{ spellCheck: "false" }}
           value={email}
           onChange={handleChange}
         />
