@@ -50,10 +50,11 @@ const SignIn = ({ toggleSignIn }) => {
           required
           fullWidth
           id="email"
+          type="email"
           label="Email Address"
           name="email"
           autoComplete="email"
-          defaultValue="testaccount@email.com"
+          defaultValue="testaccount@example.com"
           onChange={handleChange}
         />
         <TextField

@@ -69,6 +69,7 @@ const SignUp = ({ toggleSignIn }) => {
           required
           fullWidth
           id="email"
+          type="email"
           label="Email Address"
           name="email"
           autoComplete="email"
