@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   makeStyles,
@@ -40,6 +40,13 @@ const SignIn = ({ toggleSignIn }) => {
     dispatch(signInWithEmail(email, password));
   };
 
+  useEffect(() => {
+    setCredentials({
+      email: "testaccount@example.com",
+      password: "testpassword"
+    });
+  }, []);
+
   return (
     <Fragment>
       <Typography variant="h5">Sign In</Typography>
@@ -54,7 +61,7 @@ const SignIn = ({ toggleSignIn }) => {
           label="Email Address"
           name="email"
           autoComplete="email"
-          defaultValue="testaccount@example.com"
+          value={email}
           onChange={handleChange}
         />
         <TextField
@@ -67,7 +74,7 @@ const SignIn = ({ toggleSignIn }) => {
           name="password"
           type="password"
           autoComplete="current-password"
-          defaultValue="testpassword"
+          value={password}
           onChange={handleChange}
         />
         <Button

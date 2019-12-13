@@ -65,7 +65,7 @@ export const checkUserSession = () => async dispatch => {
 
 export const signInWithGoogle = () => async dispatch => {
   try {
-    const { user } = auth.signInWithPopup(googleProvider);
+    const { user } = await auth.signInWithPopup(googleProvider);
     dispatch(getSnapShotFromUserAuth(user));
   } catch (error) {
     dispatch(processError(error));
@@ -74,7 +74,7 @@ export const signInWithGoogle = () => async dispatch => {
 
 export const signInWithEmail = (email, password) => async dispatch => {
   try {
-    const { user } = auth.signInWithEmailAndPassword(email, password);
+    const { user } = await auth.signInWithEmailAndPassword(email, password);
     dispatch(getSnapShotFromUserAuth(user));
   } catch (error) {
     dispatch(processError(error));
