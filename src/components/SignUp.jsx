@@ -59,7 +59,7 @@ const SignUp = ({ toggleSignIn }) => {
           fullWidth
           id="name"
           label="Name"
-          name="name"
+          name="displayName"
           autoComplete="name"
           inputProps={{ spellCheck: "false" }}
           onChange={handleChange}
