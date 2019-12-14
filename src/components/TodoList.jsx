@@ -24,24 +24,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     borderRadius: "4px"
   },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    position: "relative",
-    marginBottom: theme.spacing(2)
-  },
-  menuButton: {
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
-  projectActions: {
-    position: "absolute",
-    right: 0
-  }
+
 }));
 
-const TodoList = ({ projectName, tasksData, toggleDrawer }) => {
+const TodoList = ({ header, projectName, tasksData, toggleDrawer }) => {
   const classes = useStyles();
   const [addFormValue, setAddFormValue] = useState("");
 
@@ -51,31 +37,6 @@ const TodoList = ({ projectName, tasksData, toggleDrawer }) => {
     if (event.key === "Enter") {
       setAddFormValue("");
     }
-  };
-
-  const renderHeader = () => {
-    return (
-      <div className={classes.header}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          className={classes.menuButton}
-          onClick={toggleDrawer}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h5">{projectName}</Typography>
-        <IconButton
-          color="inherit"
-          aria-label="open project actions"
-          edge="end"
-          className={classes.projectActions}
-        >
-          <MoreIcon />
-        </IconButton>
-      </div>
-    );
   };
 
   const renderAddForm = () => {
@@ -109,7 +70,7 @@ const TodoList = ({ projectName, tasksData, toggleDrawer }) => {
 
   return (
     <main className={classes.content}>
-      {renderHeader()}
+      {header}
       {renderAddForm()}
       {renderTasks()}
     </main>

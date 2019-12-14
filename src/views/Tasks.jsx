@@ -7,9 +7,12 @@ import useTasks from "../hooks/useTasks";
 import Sidebar from "../components/Sidebar";
 import TodoList from "../components/TodoList";
 
+import TodoListHeader from "../components/TodoListHeader";
+
 const TasksPage = () => {
   const { projectId } = useParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const projectName = useSelector(selectProjectName);
   // const tasks = useTasks(projectId);
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
@@ -17,7 +20,13 @@ const TasksPage = () => {
   return (
     <Fragment>
       <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
-      <TodoList projectId={projectId} toggleDrawer={handleDrawerToggle} />
+      <TodoList
+        header={<TodoListHeader toggleDrawer={handleDrawerToggle} />}
+        taskList={}
+        addTask={}
+        projectId={projectId}
+        toggleDrawer={handleDrawerToggle}
+      />
     </Fragment>
   );
 };
