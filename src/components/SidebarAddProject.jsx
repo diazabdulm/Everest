@@ -17,8 +17,6 @@ import { AddCircle as AddIcon } from "@material-ui/icons";
 const AddProject = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  // const firestore = useFirestore();
-  const userId = useSelector(state => state.firebase.auth.uid);
 
   const handleDialogOpen = () => setOpen(true);
 

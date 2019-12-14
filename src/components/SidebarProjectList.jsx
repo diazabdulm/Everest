@@ -6,8 +6,9 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { ListRounded as ListIcon } from "@material-ui/icons";
 
 const ProjectList = () => {
-  const projects = useSelector(state => state.firestore.ordered.projects);
-
+  // const projects = useSelector(state => state.firestore.ordered.projects);
+  const projects = [];
+  
   return (
     <Fragment>
       {projects.map(({ id, name }) => (

@@ -40,6 +40,11 @@ export const selectCurrentUser = createSelector(
   user => user.currentUser
 );
 
+export const selectDisplayName = createSelector(
+  [selectCurrentUser],
+  user => user.displayName
+);
+
 export const getSnapShotFromUserAuth = (
   userAuth,
   additionalData

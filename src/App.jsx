@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div className={classes.root}>
       <PublicRoute exact path="/" component={SignInAndSignUpPage} />
-      {/* <PrivateRoute path="/projects/:projectId" component={TasksPage} /> */}
+      <PrivateRoute path="/projects/:projectId" component={TasksPage} />
     </div>
   );
 };

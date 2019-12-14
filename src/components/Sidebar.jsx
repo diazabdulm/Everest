@@ -1,6 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {
   makeStyles,
   useTheme,
@@ -23,6 +23,10 @@ import {
   DateRangeRounded as WeekIcon
 } from "@material-ui/icons";
 
+import { selectDisplayName } from "../redux/userSlice";
+
+import getInitials from "../common/getInitials";
+
 import ProjectList from "./SidebarProjectList";
 import AddProject from "./SidebarAddProject";
 
@@ -41,9 +45,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Sidebar = ({ toggleDrawer }) => {
-  const drawerOpen = useSelector(state => state.drawer.open);
-  const dispatch = useDispatch();
+const Sidebar = ({ drawerOpen, toggleDrawer }) => {
+  const displayName = useSelector(selectDisplayName);
   const classes = useStyles();
   const theme = useTheme();
 
@@ -75,13 +78,13 @@ const Sidebar = ({ toggleDrawer }) => {
   ];
 
   const drawer = (
-    <div>
+    <div onClick={toggleDrawer}>
       <List>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar>A{/* <ImageIcon /> */}</Avatar>
+            <Avatar>{getInitials(displayName)}</Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Abdul Diaz" />
+          <ListItemText primary={displayName} />
           <SignOutIcon />
         </ListItem>
         {directory.map(({ id, name, icon, linkUrl }) => (
@@ -90,7 +93,7 @@ const Sidebar = ({ toggleDrawer }) => {
             key={id}
             component={Link}
             to={`/projects/${linkUrl}`}
-            onClick={() => dispatch(toggleDrawer())}
+            onClick={toggleDrawer}
           >
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={name} />

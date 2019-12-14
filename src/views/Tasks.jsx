@@ -5,20 +5,19 @@ import { useSelector } from "react-redux";
 import useTasks from "../hooks/useTasks";
 
 import Sidebar from "../components/Sidebar";
-import Project from "../components/Project";
+import TodoList from "../components/TodoList";
 
 const TasksPage = () => {
   const { projectId } = useParams();
-  const userId = useSelector(state => state.firebase.auth.uid);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const tasks = useTasks(projectId);
+  // const tasks = useTasks(projectId);
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
   return (
     <Fragment>
-      <Sidebar toggleDrawer={handleDrawerToggle} />
-      <Project toggleDrawer={handleDrawerToggle} projectId={projectId} />
+      <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
+      <TodoList projectId={projectId} toggleDrawer={handleDrawerToggle} />
     </Fragment>
   );
 };
