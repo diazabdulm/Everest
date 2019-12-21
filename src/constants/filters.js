@@ -1,19 +1,36 @@
-const filters = [
+import {
+  ExitToApp as SignOutIcon,
+  InboxRounded as InboxIcon,
+  AllInboxRounded as AllIcon,
+  EventRounded as TodayIcon,
+  DateRangeRounded as WeekIcon
+} from "@material-ui/icons";
+
+const directory = [
   {
     id: 0,
     name: "All",
-    url: "all"
+    icon: <AllIcon />,
+    linkUrl: "all"
   },
   {
     id: 1,
     name: "Today",
-    url: "today"
+    icon: <TodayIcon />,
+    linkUrl: "today"
   },
   {
     id: 2,
-    name: "Week",
-    url: "week"
+    name: "Next 7 Days",
+    icon: <WeekIcon />,
+    linkUrl: "week"
+  },
+  {
+    id: 3,
+    name: "Inbox",
+    icon: <InboxIcon />,
+    linkUrl: "inbox"
   }
 ];
 
-export default filters;
+export default directory;

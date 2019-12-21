@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     borderRadius: "4px"
   },
-
 }));
 
 const TodoList = ({ header, projectName, tasksData, toggleDrawer }) => {
@@ -68,11 +67,9 @@ const TodoList = ({ header, projectName, tasksData, toggleDrawer }) => {
     return null;
   };
 
-  return (
+  return (  
     <main className={classes.content}>
       {header}
-      {renderAddForm()}
-      {renderTasks()}
     </main>
   );
 };
