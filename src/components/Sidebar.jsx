@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -32,6 +32,33 @@ import AddProject from "./SidebarAddProject";
 
 const drawerWidth = 240;
 
+const directory = [
+  {
+    id: 0,
+    name: "All",
+    icon: <AllIcon />,
+    linkUrl: "all"
+  },
+  {
+    id: 1,
+    name: "Today",
+    icon: <TodayIcon />,
+    linkUrl: "today"
+  },
+  {
+    id: 2,
+    name: "Next 7 Days",
+    icon: <WeekIcon />,
+    linkUrl: "week"
+  },
+  {
+    id: 3,
+    name: "Inbox",
+    icon: <InboxIcon />,
+    linkUrl: "inbox"
+  }
+];
+
 const useStyles = makeStyles(theme => ({
   drawer: {
     [theme.breakpoints.up("sm")]: {
@@ -47,42 +74,21 @@ const useStyles = makeStyles(theme => ({
 
 const Sidebar = ({ drawerOpen, toggleDrawer }) => {
   const displayName = useSelector(selectDisplayName);
+  const [nameInitials, setNameInitials] = useState("");
   const classes = useStyles();
   const theme = useTheme();
 
-  const directory = [
-    {
-      id: 0,
-      name: "All",
-      icon: <AllIcon />,
-      linkUrl: "all"
-    },
-    {
-      id: 1,
-      name: "Today",
-      icon: <TodayIcon />,
-      linkUrl: "today"
-    },
-    {
-      id: 2,
-      name: "Next 7 Days",
-      icon: <WeekIcon />,
-      linkUrl: "week"
-    },
-    {
-      id: 3,
-      name: "Inbox",
-      icon: <InboxIcon />,
-      linkUrl: "inbox"
-    }
-  ];
+  useEffect(() => {
+    const initials = getInitials(displayName);
+    setNameInitials(initials);
+  }, [displayName]);
 
   const drawer = (
     <div onClick={toggleDrawer}>
       <List>
         <ListItem button>
           <ListItemAvatar>
-            <Avatar>{getInitials(displayName)}</Avatar>
+            <Avatar>{nameInitials}</Avatar>
           </ListItemAvatar>
           <ListItemText primary={displayName} />
           <SignOutIcon />

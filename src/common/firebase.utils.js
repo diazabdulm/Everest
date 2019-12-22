@@ -16,7 +16,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
-    try {
+    try { 
       await userRef.set({
         displayName,
         email,
