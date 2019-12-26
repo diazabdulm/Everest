@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { projectsRef } from "../common/firebase.utils";
+import { projectsRef, convertSnapshotToMap } from "../common/firebase.utils";
 
 const projectsSlice = createSlice({
   name: "projects",
   initialState: [],
   reducers: {
-    setProjects: (state, action) => action.payload
+    setProjects: action => action.payload
   }
 });
 
@@ -28,3 +28,18 @@ export const fetchProjects = () => async dispatch =>
   projectsRef.onSnapshot(snapshot => {
     setProjects(snapshot.data());
   });
+
+export const subscribeToUserProjects = setUnsubscribe => {
+  return (dispatch, getState) => {
+    const userId = getState().user.currentUser.id;
+
+    const unsubscribe = projectsRef
+      .where("userId", "==", userId)
+      .onSnapshot(snapshot => {
+        const data = convertSnapshotToMap(snapshot);
+        dispatch(setProjects(data));
+      });
+
+    setUnsubscribe(unsubscribe);
+  };
+};

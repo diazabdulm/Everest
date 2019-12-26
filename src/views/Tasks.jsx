@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
-import { selectProjectTasks } from "../redux/tasksSlice";
+import { subscribeToUserTasks, selectProjectTasks } from "../redux/tasksSlice";
+import { subscribeToUserProjects } from "../redux/projectsSlice";
 
 import Sidebar from "../components/Sidebar";
 
@@ -23,18 +24,35 @@ const TasksPage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const tasks = useSelector(state => selectProjectTasks(state, projectId));
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
+
+  useEffect(() => {
+    let unsubscribe = () => {};
+    dispatch(subscribeToUserTasks(func => (unsubscribe = func)));
+    return () => unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    let unsubscribe = () => {};
+    dispatch(subscribeToUserProjects(func => (unsubscribe = func)));
+    return () => unsubscribe();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Fragment>
       <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
       <main className={classes.content}>
         <TodoListHeader toggleDrawer={handleDrawerToggle} />
-        <TodoListAddForm projectId={projectId} />
-        {tasks.map(({ id, ...otherProps }) => (
+        {/* <TodoListAddForm projectId={projectId} /> */}
+        {/* {tasks.map(({ id, ...otherProps }) => (
           <TodoListItem key={id} {...otherProps} />
-        ))}
+        ))} */}
       </main>
     </Fragment>
   );

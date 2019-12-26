@@ -16,7 +16,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
 
-    try { 
+    try {
       await userRef.set({
         displayName,
         email,
@@ -46,32 +46,13 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const convertTasksSnapshotToMap = tasks => {
-  const transformedTaskCollection = tasks.docs.map(doc => {
-    const { text, date, projectId } = doc.data();
+export const convertSnapshotToMap = snapshot => {
+  const transformedCollection = snapshot.docs.map(doc => ({
+    ...doc.data(),
+    id: doc.id
+  }));
 
-    return {
-      text,
-      date,
-      projectId,
-      id: doc.id
-    };
-  });
-
-  return transformedTaskCollection;
-};
-
-export const convertProjectsSnapshotToMap = projects => {
-  const transformedProjectCollection = projects.docs.map(doc => {
-    const { text } = doc.data();
-
-    return {
-      text,
-      id: doc.id
-    };
-  });
-
-  return transformedProjectCollection;
+  return transformedCollection;
 };
 
 export const getCurrentUser = () => {

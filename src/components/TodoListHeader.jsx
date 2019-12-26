@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles, IconButton, Typography } from "@material-ui/core";
 import {
   MenuRounded as MenuIcon,
-  MoreHoriz as MoreIcon
+  DeleteForever as DeleteIcon
 } from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
@@ -40,11 +40,11 @@ const TodoListHeader = ({ projectName, toggleDrawer }) => {
       <Typography variant="h5">{projectName}</Typography>
       <IconButton
         color="inherit"
-        aria-label="open project actions"
+        aria-label="delete project"
         edge="end"
         className={classes.projectActions}
       >
-        <MoreIcon />
+        <DeleteIcon />
       </IconButton>
     </div>
   );
