@@ -86,7 +86,7 @@ const Sidebar = ({ drawerOpen, toggleDrawer }) => {
   const drawer = (
     <div onClick={toggleDrawer}>
       <List>
-        <ListItem button>
+        <ListItem>
           <ListItemAvatar>
             <Avatar>{nameInitials}</Avatar>
           </ListItemAvatar>

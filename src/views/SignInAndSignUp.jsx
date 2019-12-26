@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
-    margin: theme.spacing(8, 0),
+    margin: theme.spacing(8, 0)
   },
   avatar: {
     margin: theme.spacing(1),

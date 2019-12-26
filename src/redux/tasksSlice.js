@@ -14,6 +14,10 @@ export const { setTasks } = tasks.actions;
 
 export default tasks.reducer;
 
+export const selectProjectTasks = projectId => {
+  
+}
+
 export const addTask = newTask => async dispatch => tasksRef.add(newTask);
 
 export const removeTask = taskId => async dispatch =>
