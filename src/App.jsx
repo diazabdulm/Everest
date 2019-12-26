@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
-import PublicRoute from "./components/PublicRoute";
 import PrivateRoute from "./components/PrivateRoute";
 
 import { checkUserSession } from "./redux/userSlice";
@@ -28,7 +27,7 @@ const App = () => {
   return (
     <div className={classes.root}>
       <Switch>
-        <PublicRoute exact path="/" component={SignInAndSignUpPage} />
+        <Route exact path="/" component={SignInAndSignUpPage} />
         <PrivateRoute path="/projects/:projectId" component={TasksPage} />
       </Switch>
     </div>

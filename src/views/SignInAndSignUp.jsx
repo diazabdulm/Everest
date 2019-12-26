@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback, useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   makeStyles,
   Avatar,
@@ -8,6 +9,8 @@ import {
   Typography
 } from "@material-ui/core";
 import { LockOutlined as LockIcon } from "@material-ui/icons";
+
+import { selectCurrentUser } from "../redux/userSlice";
 
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
@@ -59,9 +62,12 @@ const SignInAndSignUpPage = () => {
   const googleSignInStart = useCallback(() => dispatch(signInWithGoogle()), [
     dispatch
   ]);
+  const auth = useSelector(selectCurrentUser);
   const [isSignIn, setIsSignIn] = useState(true);
 
   const handleIsSignIn = () => setIsSignIn(!isSignIn);
+
+  if (auth) return <Redirect to="/projects" />;
 
   return (
     <Container maxWidth="xs">

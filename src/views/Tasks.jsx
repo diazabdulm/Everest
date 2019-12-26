@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core";
 import { selectProjectTasks } from "../redux/tasksSlice";
 
 import Sidebar from "../components/Sidebar";
-import TodoList from "../components/TodoList";
 
 import TodoListHeader from "../components/TodoListHeader";
 import TodoListAddForm from "../components/TodoListAddForm";
