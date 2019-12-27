@@ -11,27 +11,27 @@ import SignInAndSignUpPage from "./views/SignInAndSignUp";
 import TasksPage from "./views/Tasks";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  }
+   root: {
+      display: "flex"
+   }
 }));
 
 const App = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+   const classes = useStyles();
+   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(checkUserSession());
-  }, [dispatch]);
+   useEffect(() => {
+      dispatch(checkUserSession());
+   }, [dispatch]);
 
-  return (
-    <div className={classes.root}>
-      <Switch>
-        <Route exact path="/" component={SignInAndSignUpPage} />
-        <PrivateRoute path="/projects/:projectId" component={TasksPage} />
-      </Switch>
-    </div>
-  );
+   return (
+      <div className={classes.root}>
+         <Switch>
+            <Route exact path="/" component={SignInAndSignUpPage} />
+            <PrivateRoute path="/projects/:projectId" component={TasksPage} />
+         </Switch>
+      </div>
+   );
 };
 
 export default App;

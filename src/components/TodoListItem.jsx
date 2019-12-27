@@ -7,17 +7,21 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-import { removeTask } from "../redux/tasksSlice";
+import { deleteTask } from "../redux/tasksSlice";
 
 import formatDate from "../common/formatDate";
 
 const TodoListItem = ({ id, name, date }) => {
   const dispatch = useDispatch();
 
-  const handleRemoveTask = () => dispatch(removeTask(id));
-
   return (
-    <ListItem dense button disableGutters onClick={handleRemoveTask} divider>
+    <ListItem
+      dense
+      button
+      disableGutters
+      onClick={() => dispatch(deleteTask(id))}
+      divider
+    >
       <ListItemIcon>
         <Checkbox
           edge="start"
@@ -26,7 +30,7 @@ const TodoListItem = ({ id, name, date }) => {
           inputProps={{ "aria-labelledby": name }}
         />
       </ListItemIcon>
-      <ListItemText primary={name} secondary={date && formatDate(date)} />
+      <ListItemText primary={name} />
     </ListItem>
   );
 };

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import chrono from "chrono-node";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 // import { useFirestore } from "react-redux-firebase";
 import { makeStyles, TextField } from "@material-ui/core";
+
+import { addTask } from "../redux/tasksSlice";
 
 const useStyles = makeStyles(theme => ({
   textField: {
@@ -14,7 +17,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ProjectAddTask = ({ projectId }) => {
+const TodoListAddForm = () => {
+  const { projectId } = useParams();
   const [name, setName] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -23,17 +27,8 @@ const ProjectAddTask = ({ projectId }) => {
 
   const handleTaskAdd = event => {
     if (event.key === "Enter") {
-      // return firestore
-      //   .collection("tasks")
-      //   .add({
-      //     userId,
-      //     projectId,
-      //     name: name.trim(),
-      //     date: chrono.parseDate(name),
-      //     createdAt: firestore.FieldValue.serverTimestamp()
-      //   })
-      //   .then(() => setName(""))
-      //   .catch(() => alert("An error occurred. Please try again later."));
+      dispatch(addTask({ name, projectId }))
+      setName("");
     }
   };
 
@@ -56,4 +51,4 @@ const ProjectAddTask = ({ projectId }) => {
   );
 };
 
-export default ProjectAddTask;
+export default TodoListAddForm;

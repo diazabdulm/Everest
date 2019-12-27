@@ -1,48 +1,52 @@
+import chrono from "chrono-node";
 import { createSlice } from "@reduxjs/toolkit";
 
 import { tasksRef, convertSnapshotToMap } from "../common/firebase.utils";
 
 const tasks = createSlice({
-  name: "tasks",
-  initialState: [],
-  reducers: {
-    addTask: {
-      reducer: (state, action) => {
-        state.push(action.payload);
-      },
-      prepare: ({ text, projectId }) => ({
-        payload: {
-          text,
-          projectId
-        }
-      })
-    },
-    setTasks: action => action.payload
-  }
+   name: "tasks",
+   initialState: [],
+   reducers: {
+      setTasks: (state, action) => action.payload
+   }
 });
 
 export const { setTasks } = tasks.actions;
 
 export default tasks.reducer;
 
-export const selectProjectTasks = projectId => {};
+export const selectProjectTasks = (state, projectId) =>
+   state.tasks.filter(task => task.projectId === projectId);
 
-export const addTask = newTask => async dispatch => tasksRef.add(newTask);
+export const addTask = ({ name, projectId }) => async (dispatch, getState) => {
+   try {
+      const newTaskData = {
+         userId: getState().user.currentUser.id,
+         name: name.trim(),
+         createdAt: new Date(),
+         date: chrono.parseDate(name),
+         projectId
+      };
+      await tasksRef.add(newTaskData);
+   } catch (error) {
+      console.error(error);
+   }
+};
 
-export const removeTask = taskId => async dispatch =>
-  tasksRef.doc(taskId).remove();
+export const deleteTask = taskId => dispatch => tasksRef.doc(taskId).delete();
 
 export const subscribeToUserTasks = setUnsubscribe => {
-  return (dispatch, getState) => {
-    const userId = getState().user.currentUser.id;
+   return (dispatch, getState) => {
+      const userId = getState().user.currentUser.id;
 
-    const unsubscribe = tasksRef
-      .where("userId", "==", userId)
-      .onSnapshot(snapshot => {
-        const data = convertSnapshotToMap(snapshot);
-        dispatch(setTasks(data));
-      });
+      const unsubscribe = tasksRef
+         .orderBy("createdAt", "desc")
+         .where("userId", "==", userId)
+         .onSnapshot(snapshot => {
+            const data = convertSnapshotToMap(snapshot);
+            dispatch(setTasks(data));
+         });
 
-    setUnsubscribe(unsubscribe);
-  };
+      setUnsubscribe(unsubscribe);
+   };
 };

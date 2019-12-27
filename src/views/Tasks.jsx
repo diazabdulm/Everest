@@ -8,54 +8,74 @@ import { subscribeToUserProjects } from "../redux/projectsSlice";
 
 import Sidebar from "../components/Sidebar";
 
+import TaskList from "../components/TaskList";
+
 import TodoListHeader from "../components/TodoListHeader";
 import TodoListAddForm from "../components/TodoListAddForm";
 import TodoListItem from "../components/TodoListItem";
 
 const useStyles = makeStyles(theme => ({
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  }
+   content: {
+      flexGrow: 1,
+      padding: theme.spacing(3)
+   },
+   header: {
+      display: "flex",
+      alignItems: "center",
+      position: "relative",
+      marginBottom: theme.spacing(2)
+   },
+   menuButton: {
+      [theme.breakpoints.up("sm")]: {
+         display: "none"
+      }
+   },
+   deleteProject: {
+      position: "absolute",
+      right: 0
+   }
 }));
 
 const TasksPage = () => {
-  const { projectId } = useParams();
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const tasks = useSelector(state => selectProjectTasks(state, projectId));
-  const classes = useStyles();
-  const dispatch = useDispatch();
+   const classes = useStyles();
+   const dispatch = useDispatch();
 
-  const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
+   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useEffect(() => {
-    let unsubscribe = () => {};
-    dispatch(subscribeToUserTasks(func => (unsubscribe = func)));
-    return () => unsubscribe();
+   const { projectId } = useParams();
+   const tasks = useSelector(state => selectProjectTasks(state, projectId));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
-  useEffect(() => {
-    let unsubscribe = () => {};
-    dispatch(subscribeToUserProjects(func => (unsubscribe = func)));
-    return () => unsubscribe();
+   useEffect(() => {
+      let unsubscribe = () => {};
+      dispatch(subscribeToUserTasks(func => (unsubscribe = func)));
+      return () => unsubscribe();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
 
-  return (
-    <Fragment>
-      <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
-      <main className={classes.content}>
-        <TodoListHeader toggleDrawer={handleDrawerToggle} />
-        {/* <TodoListAddForm projectId={projectId} /> */}
-        {/* {tasks.map(({ id, ...otherProps }) => (
-          <TodoListItem key={id} {...otherProps} />
-        ))} */}
-      </main>
-    </Fragment>
-  );
+   useEffect(() => {
+      let unsubscribe = () => {};
+      dispatch(subscribeToUserProjects(func => (unsubscribe = func)));
+      return () => unsubscribe();
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
+   return (
+      <Fragment>
+         <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
+         <main className={classes.content}>
+            <TaskList />
+            <TodoListHeader toggleDrawer={handleDrawerToggle} />
+            <TodoListAddForm />
+            {tasks.map(({ id, ...otherProps }) => (
+               <TodoListItem key={id} id={id} {...otherProps} />
+            ))}
+         </main>
+      </Fragment>
+   );
 };
 
 export default TasksPage;

@@ -6,6 +6,7 @@ import logger from "redux-logger";
 
 import tasks from "./tasksSlice";
 import projects from "./projectsSlice";
+import visibilityFilter from "./visibilityFilterSlice";
 import user from "./userSlice";
 
 const middlewares = [];
@@ -22,6 +23,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   tasks,
   projects,
+  visibilityFilter,
   user
 });
 

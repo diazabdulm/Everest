@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-// import { isLoaded } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { ListRounded as ListIcon } from "@material-ui/icons";
 
+import { selectProjects } from "../redux/projectsSlice";
+
 const ProjectList = () => {
-  // const projects = useSelector(state => state.firestore.ordered.projects);
-  const projects = [];
-  
+  const projects = useSelector(selectProjects);
+
   return (
     <Fragment>
       {projects.map(({ id, name }) => (

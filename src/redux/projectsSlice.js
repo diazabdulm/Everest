@@ -6,7 +6,7 @@ const projectsSlice = createSlice({
   name: "projects",
   initialState: [],
   reducers: {
-    setProjects: action => action.payload
+    setProjects: (state, action) => action.payload
   }
 });
 
@@ -16,15 +16,26 @@ export default projectsSlice.reducer;
 
 export const selectProjects = state => state.projects;
 
-// export const selectCurrentProjectName = state => state.projects.filter(project => project.id === project)
+export const selectCurrentProjectName = (state, projectId) =>
+  state.projects.find(project => project.id === projectId).name;
 
-export const addProject = newProject => async dispatch =>
-  projectsRef.add(newProject);
+export const addProject = name => async (dispatch, getState) => {
+  try {
+    const newProjectData = {
+      userId: getState().user.currentUser.id,
+      name: name.trim(),
+      createdAt: new Date()
+    };
+    await projectsRef.add(newProjectData);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-export const removeProject = projectId => async dispatch =>
-  projectsRef.doc(projectId).remove();
+export const deleteProject = projectId => dispatch =>
+  projectsRef.doc(projectId).delete();
 
-export const fetchProjects = () => async dispatch =>
+export const fetchProjects = () => dispatch =>
   projectsRef.onSnapshot(snapshot => {
     setProjects(snapshot.data());
   });
@@ -34,6 +45,7 @@ export const subscribeToUserProjects = setUnsubscribe => {
     const userId = getState().user.currentUser.id;
 
     const unsubscribe = projectsRef
+      .orderBy("createdAt", "asc")
       .where("userId", "==", userId)
       .onSnapshot(snapshot => {
         const data = convertSnapshotToMap(snapshot);

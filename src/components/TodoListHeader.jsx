@@ -1,9 +1,13 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { makeStyles, IconButton, Typography } from "@material-ui/core";
 import {
   MenuRounded as MenuIcon,
   DeleteForever as DeleteIcon
 } from "@material-ui/icons";
+
+import { deleteProject, selectCurrentProjectName } from "../redux/projectsSlice";
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -17,14 +21,18 @@ const useStyles = makeStyles(theme => ({
       display: "none"
     }
   },
-  projectActions: {
+  deleteButton: {
     position: "absolute",
     right: 0
   }
 }));
 
-const TodoListHeader = ({ projectName, toggleDrawer }) => {
+const TodoListHeader = ({ toggleDrawer }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { projectId } = useParams();
+  const projectName = useSelector(state => selectCurrentProjectName(state, projectId))
 
   return (
     <div className={classes.header}>
@@ -42,7 +50,8 @@ const TodoListHeader = ({ projectName, toggleDrawer }) => {
         color="inherit"
         aria-label="delete project"
         edge="end"
-        className={classes.projectActions}
+        className={classes.deleteButton}
+        onClick={() => dispatch(deleteProject(projectId))}
       >
         <DeleteIcon />
       </IconButton>

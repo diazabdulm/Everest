@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 // import { useFirestore } from "react-redux-firebase";
 import {
   Button,
@@ -14,9 +14,17 @@ import {
 } from "@material-ui/core";
 import { AddCircle as AddIcon } from "@material-ui/icons";
 
+import { addProject } from "../redux/projectsSlice";
+
 const AddProject = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
+  const [isTextEmpty, setIsTextEmpty] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsTextEmpty(!name.trim());
+  }, [name]);
 
   const handleDialogOpen = () => setOpen(true);
 
@@ -28,15 +36,8 @@ const AddProject = () => {
   const handleNameChange = event => setName(event.target.value);
 
   const handleProjectAdd = () => {
-    // return firestore
-    //   .collection("projects")
-    //   .add({
-    //     userId,
-    //     name: name.trim(),
-    //     createdAt: firestore.FieldValue.serverTimestamp()
-    //   })
-    //   .then(() => handleDialogClose())
-    //   .catch(() => alert("An error occurred. Please try again later."));
+    dispatch(addProject(name));
+    handleDialogClose();
   };
 
   return (
@@ -73,7 +74,7 @@ const AddProject = () => {
           <Button
             onClick={handleProjectAdd}
             color="primary"
-            disabled={!name.trim()}
+            disabled={isTextEmpty}
           >
             Add
           </Button>
