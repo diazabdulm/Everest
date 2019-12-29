@@ -4,7 +4,7 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 
 import { setVisibilityFilter } from "../redux/visibilityFilterSlice";
 
-const SidebarFilterLink = ({ filter, icon, name }) => {
+export default function FilterLink({ filter, name, children: icon }) {
 	const dispatch = useDispatch();
 
 	return (
@@ -13,6 +13,4 @@ const SidebarFilterLink = ({ filter, icon, name }) => {
 			<ListItemText primary={name} />
 		</ListItem>
 	);
-};
-
-export default SidebarFilterLink;
+}

@@ -1,27 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
-import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { store, persistor } from "./redux";
+import store from "./redux";
 
-import theme from "./constants/theme";
-
-import App from "./App";
+import App from "./components/App";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+   <Provider store={store}>
       <BrowserRouter>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </MuiThemeProvider>
+         <CssBaseline />
+         <App />
       </BrowserRouter>
-    </PersistGate>
-  </Provider>,
-  document.getElementById("root")
+   </Provider>,
+   document.getElementById("root")
 );

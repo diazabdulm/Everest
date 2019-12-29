@@ -29,7 +29,7 @@ export const addTask = ({ name, projectId }) => async (dispatch, getState) => {
       };
       await tasksRef.add(newTaskData);
    } catch (error) {
-      console.error(error);
+      throw new Error(error);
    }
 };
 
