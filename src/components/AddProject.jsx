@@ -22,6 +22,7 @@ export default function AddProject({ open, handleClose }) {
 
 		dispatch(addProject(formValue));
 		setFormValue("");
+		handleClose();
 	};
 
 	return (
@@ -42,7 +43,6 @@ export default function AddProject({ open, handleClose }) {
 					type="text"
 					fullWidth
 					onChange={handleFormValueChange}
-					onKeyPress={handleFormSubmit}
 				/>
 			</DialogContent>
 			<DialogActions>

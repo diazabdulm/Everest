@@ -1,18 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	Avatar as AvatarCircle,
 	ListItem,
 	ListItemAvatar,
 	ListItemText
 } from "@material-ui/core";
+import { ExitToApp } from "@material-ui/icons";
 
 import getInitials from "../common/getInitials";
 
-import { selectDisplayName } from "../redux/userSlice";
+import { selectDisplayName, signOut } from "../redux/userSlice";
 
 export default function Avatar() {
 	const userName = useSelector(selectDisplayName);
+	const dispatch = useDispatch();
 
 	return (
 		<ListItem>
@@ -20,6 +22,7 @@ export default function Avatar() {
 				<AvatarCircle>{getInitials(userName)}</AvatarCircle>
 			</ListItemAvatar>
 			<ListItemText primary={userName} />
+			<ExitToApp onClick={() => dispatch(signOut())} />
 		</ListItem>
 	);
 }

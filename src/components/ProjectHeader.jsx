@@ -1,9 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { makeStyles, IconButton, Typography } from "@material-ui/core";
 import { MenuRounded, DeleteForever } from "@material-ui/icons";
 
-import { deleteProject } from "../redux/projectsSlice";
+import {
+	deleteProject,
+	selectCurrentProjectName
+} from "../redux/projectsSlice";
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -23,9 +27,36 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function ProjectHeader() {
+const getCurrentProjectName = (state, projectId, filter) => {
+	switch (filter) {
+		case "SHOW_ALL":
+			return "All";
+		case "SHOW_TODAY":
+			return "Today";
+		case "SHOW_WEEK":
+			return "Week";
+		case "SHOW_INBOX":
+			return "Inbox";
+		case "SHOW_USER_PROJECT":
+			return selectCurrentProjectName(state, projectId);
+	}
+};
+
+export default function ProjectHeader({ toggleDrawer }) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const { projectId } = useParams();
+	const currentFilter = useSelector(state => state.visibilityFilter);
+	const currentProjectName = useSelector(state =>
+		getCurrentProjectName(state, projectId, currentFilter)
+	);
+
+	const handleProjectDelete = () => {
+		history.push("/projects/all");
+		dispatch(deleteProject(projectId));
+	};
 
 	return (
 		<div className={classes.header}>
@@ -34,20 +65,22 @@ export default function ProjectHeader() {
 				aria-label="open drawer"
 				edge="start"
 				className={classes.menu}
-				// onClick={toggleDrawer}
+				onClick={toggleDrawer}
 			>
 				<MenuRounded />
 			</IconButton>
-			<Typography variant="h5">Selected Project: </Typography>
-			<IconButton
-				color="inherit"
-				aria-label="delete project"
-				edge="end"
-				className={classes.delete}
-				// onClick={() => dispatch(deleteProject(projectId))}
-			>
-				<DeleteForever />
-			</IconButton>
+			<Typography variant="h5">{currentProjectName}</Typography>
+			{currentFilter === "SHOW_USER_PROJECT" && (
+				<IconButton
+					color="inherit"
+					aria-label="delete project"
+					edge="end"
+					className={classes.delete}
+					onClick={handleProjectDelete}
+				>
+					<DeleteForever />
+				</IconButton>
+			)}
 		</div>
 	);
 }
