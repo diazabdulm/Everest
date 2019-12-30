@@ -16,7 +16,6 @@ export default function Task({ id, name }) {
 		<ListItem dense button disableGutters divider>
 			<ListItemIcon>
 				<Checkbox
-					disableRipple
 					edge="start"
 					checked={false}
 					inputProps={{ "aria-labelledby": name }}
