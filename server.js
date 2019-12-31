@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const compression = require("compression");
-const bodyParser = require("bodyParser");
+const bodyParser = require("body-parser");
 const path = require("path");
 const enforce = require("express-sslify");
 
