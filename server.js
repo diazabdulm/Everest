@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import compression from "compression";
-import bodyParser from "body-parser";
-import path from "path";
-import enforce from "express-sslify";
+const express = require("express");
+const cors = require("cors");
+const compression = require("compression");
+const bodyParser = require("bodyParser");
+const path = require("path");
+const enforce = require("express-sslify");
 
 const app = express();
 const port = process.env.PORT || 5000;
