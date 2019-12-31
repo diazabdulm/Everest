@@ -13,19 +13,13 @@ export default function Task({ id, name }) {
 	const dispatch = useDispatch();
 
 	return (
-		<ListItem
-			dense
-			button
-			disableGutters
-			divider
-			onClick={() => dispatch(deleteTask(id))}
-		>
+		<ListItem dense button disableGutters divider>
 			<ListItemIcon>
 				<Checkbox
-					disableRipple
 					edge="start"
-					inputProps={{ "aria-labelledby": name }}
 					checked={false}
+					inputProps={{ "aria-labelledby": name }}
+					onClick={() => dispatch(deleteTask(id))}
 				/>
 			</ListItemIcon>
 			<ListItemText primary={name} />
