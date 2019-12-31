@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
-
 import store from "./redux";
 import theme from "./common/theme";
+
+import * as serviceWorker from "./serviceWorker.js";
 
 import App from "./components/App";
 
@@ -20,3 +21,5 @@ ReactDOM.render(
 	</Provider>,
 	document.getElementById("root")
 );
+
+serviceWorker.register();
