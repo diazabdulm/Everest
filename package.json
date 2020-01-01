@@ -21,6 +21,6 @@
     "express-sslify": "^1.2.0"
   },
   "devDependencies": {
-    "concurrently": "^4.0.1"
+    "concurrently": "^5.0.2"
   }
 }
