@@ -11,53 +11,56 @@ import ProjectHeader from "../components/ProjectHeader";
 import Sidebar from "../components/Sidebar";
 
 const useStyles = makeStyles(theme => ({
-	container: {
-		display: "flex"
-	},
-	main: {
-		flexGrow: 1,
-		padding: theme.spacing(3)
-	}
+  container: {
+    display: "flex"
+  },
+  main: {
+    flexGrow: 1,
+    paddingTop: 0,
+    padding: theme.spacing(3)
+  },
+  toolbar: theme.mixins.toolbar
 }));
 
 export default function TasksPage() {
-	const classes = useStyles();
-	const dispatch = useDispatch();
+  const classes = useStyles();
+  const dispatch = useDispatch();
 
-	const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-	const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
+  const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
-	/*
+  /*
 		Both the tasks and projects useEffect methods attach
 		to their respective firestore listener, and on component unmount 
 		the cleanup method is executed.
 	*/
 
-	useEffect(() => {
-		let unsubscribe = () => {};
-		dispatch(subscribeToUserTasks(func => (unsubscribe = func)));
-		return () => unsubscribe();
+  useEffect(() => {
+    let unsubscribe = () => {};
+    dispatch(subscribeToUserTasks(func => (unsubscribe = func)));
+    return () => unsubscribe();
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	useEffect(() => {
-		let unsubscribe = () => {};
-		dispatch(subscribeToUserProjects(func => (unsubscribe = func)));
-		return () => unsubscribe();
+  useEffect(() => {
+    let unsubscribe = () => {};
+    dispatch(subscribeToUserProjects(func => (unsubscribe = func)));
+    return () => unsubscribe();
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-	return (
-		<div className={classes.container}>
-			<Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
-			<main className={classes.main}>
-				<ProjectHeader toggleDrawer={handleDrawerToggle} />
-				<AddTask />
-				<TaskList />
-			</main>
-		</div>
-	);
+  return (
+    <div className={classes.container}>
+      <ProjectHeader toggleDrawer={handleDrawerToggle} />
+      <Sidebar drawerOpen={drawerOpen} toggleDrawer={handleDrawerToggle} />
+      <main className={classes.main}>
+        <div className={classes.toolbar} />
+        <AddTask />
+        <TaskList />
+      </main>
+    </div>
+  );
 }
