@@ -51,7 +51,7 @@ export default function AddTask() {
 	return (
 		<TextField
 			variant="filled"
-			placeholder="Add a task..."
+			placeholder="Add a task, press Enter to save"
 			fullWidth
 			onChange={handleFormValueChange}
 			onKeyPress={handleFormSubmit}
