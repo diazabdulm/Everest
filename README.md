@@ -29,4 +29,16 @@ I remember seeing a video on Youtube of a developer attempting to build a Todois
 
 # How to Build
 
-Clone the repository to your local workspace. Edit the _firebase.utils.js_ file and enter your own firebase config. To generate your own config, see the [firebase console](https://console.firebase.google.com/). Hack away!
+To run locally, clone the repository and run:
+
+```
+npm install
+```
+
+Once all of the dependencies are installed, you can start the development server with:
+
+```
+npm start
+```
+
+This project leverages the use of Google's Firestore Database. To connect your Firestore instance to this app, edit the _firebase.utils.js_ file and enter your config. Hack away!
