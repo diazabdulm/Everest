@@ -7,6 +7,7 @@ An open-source ReactJS-based to-do list application. Features:
 -  Filter tasks by All, Today, Week, or Inbox view to gain a more holistic look at your commitments
 -  Data synchronization with Firebase server, so your data is everywhere you go
 -  Sign in with email and password or One click sign-in with Google
+- PWA-compatible, so you can install this app on any of your devices
 
 # Inspiration
 
