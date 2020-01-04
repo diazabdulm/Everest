@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 
 import tasks from "./tasksSlice";
@@ -10,24 +12,31 @@ import user from "./userSlice";
 const middlewares = [];
 
 if (process.env.NODE_ENV === "development") {
-	middlewares.push(logger);
+  middlewares.push(logger);
 }
 
+const persistConfig = {
+  key: "root",
+  storage
+};
+
 const rootReducer = combineReducers({
-	tasks,
-	projects,
-	visibilityFilter,
-	user
+  tasks,
+  projects,
+  visibilityFilter,
+  user
 });
 
-const store = configureStore({
-	reducer: rootReducer,
-	middleware: [
-		...getDefaultMiddleware({
-			serializableCheck: false
-		}),
-		...middlewares
-	]
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [
+    ...getDefaultMiddleware({
+      serializableCheck: false
+    }),
+    ...middlewares
+  ]
 });
 
-export default store;
+export const persistor = persistStore(store);
