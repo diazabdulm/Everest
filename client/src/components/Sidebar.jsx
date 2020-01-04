@@ -1,7 +1,13 @@
 import React from "react";
-import { makeStyles, useTheme, Drawer, Hidden } from "@material-ui/core";
+import {
+  makeStyles,
+  useTheme,
+  Drawer,
+  Hidden,
+  SwipeableDrawer
+} from "@material-ui/core";
 
-import { DRAWER_WIDTH } from "../constants/misc";
+import { DRAWER_WIDTH, iOS } from "../constants/misc";
 
 import { default as CustomDrawer } from "./Drawer";
 
@@ -25,10 +31,12 @@ const Sidebar = ({ drawerOpen, toggleDrawer }) => {
   return (
     <nav className={classes.drawer} aria-label="list holder">
       <Hidden smUp implementation="js">
-        <Drawer
+        <SwipeableDrawer
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
+          disableDiscovery={iOS}
           open={drawerOpen}
+          onOpen={toggleDrawer}
           onClose={toggleDrawer}
           onClick={toggleDrawer}
           classes={{
@@ -39,7 +47,7 @@ const Sidebar = ({ drawerOpen, toggleDrawer }) => {
           }}
         >
           <CustomDrawer />
-        </Drawer>
+        </SwipeableDrawer>
       </Hidden>
       <Hidden xsDown implementation="js">
         <Drawer
