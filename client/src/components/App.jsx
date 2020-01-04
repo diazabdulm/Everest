@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { checkUserSession } from "../redux/userSlice";
@@ -10,20 +10,17 @@ import TasksPage from "../pages/Tasks";
 import LoginAndRegisterPage from "../pages/LoginAndRegister";
 
 export default function App() {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(checkUserSession());
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(checkUserSession());
+  }, [dispatch]);
 
-	return (
-		<Switch>
-			<Route exact path="/" component={LoginAndRegisterPage} />
-			<PrivateRoute
-				exact
-				path="/projects/:projectId"
-				component={TasksPage}
-			/>
-		</Switch>
-	);
+  return (
+    <Switch>
+      <Route exact path="/login" component={LoginAndRegisterPage} />
+      <PrivateRoute exact path="/:projectId" component={TasksPage} />
+      <Redirect to="/all" />
+    </Switch>
+  );
 }

@@ -63,7 +63,7 @@ export default function ProjectHeader({ toggleDrawer }) {
   );
 
   const handleProjectDelete = () => {
-    history.push("/projects/all");
+    history.push("/all");
     dispatch(deleteProject(projectId));
   };
 

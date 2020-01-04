@@ -5,20 +5,20 @@ import { Route, Redirect } from "react-router-dom";
 import { selectCurrentUser } from "../redux/userSlice";
 
 const PrivateRoute = ({ component: Component, ...componentProps }) => {
-	const auth = useSelector(selectCurrentUser);
+  const auth = useSelector(selectCurrentUser);
 
-	return (
-		<Route
-			{...componentProps}
-			render={routeProps =>
-				auth ? (
-					<Component {...componentProps} {...routeProps} />
-				) : (
-					<Redirect to="/" />
-				)
-			}
-		/>
-	);
+  return (
+    <Route
+      {...componentProps}
+      render={routeProps =>
+        auth ? (
+          <Component {...componentProps} {...routeProps} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
 };
 
 export default PrivateRoute;
