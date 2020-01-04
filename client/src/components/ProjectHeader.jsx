@@ -21,7 +21,6 @@ import {
 const useStyles = makeStyles(theme => ({
   appBar: {
     boxShadow: "none",
-    background: "transparent",
     [theme.breakpoints.up("sm")]: {
       width: `calc(100% - ${DRAWER_WIDTH}px)`,
       marginLeft: DRAWER_WIDTH
