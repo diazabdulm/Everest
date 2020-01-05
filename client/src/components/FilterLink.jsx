@@ -6,23 +6,23 @@ import { ListRounded } from "@material-ui/icons";
 import { setVisibilityFilter } from "../redux/visibilityFilterSlice";
 
 export default function FilterLink({
-	filter,
-	name,
-	icon: Icon = ListRounded,
-	...otherProps
+  filter,
+  name,
+  icon: Icon = ListRounded,
+  ...otherProps
 }) {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	return (
-		<ListItem
-			button
-			onClick={() => dispatch(setVisibilityFilter(filter))}
-			{...otherProps}
-		>
-			<ListItemIcon>
-				<Icon />
-			</ListItemIcon>
-			<ListItemText primary={name} />
-		</ListItem>
-	);
+  return (
+    <ListItem
+      button
+      onClick={() => dispatch(setVisibilityFilter(filter))}
+      {...otherProps}
+    >
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
+      <ListItemText primary={name} />
+    </ListItem>
+  );
 }

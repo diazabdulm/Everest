@@ -13,13 +13,14 @@ import { default as CustomDrawer } from "./Drawer";
 
 const useStyles = makeStyles(theme => ({
   drawer: {
+    background: theme.palette.grey.A400,
     [theme.breakpoints.up("sm")]: {
       width: DRAWER_WIDTH,
       flexShrink: 0
-    },
-    background: theme.palette.grey.A400
+    }
   },
   drawerPaper: {
+    background: theme.palette.grey[200],
     width: DRAWER_WIDTH
   }
 }));
