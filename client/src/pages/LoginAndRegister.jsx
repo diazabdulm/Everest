@@ -6,6 +6,8 @@ import {
   Avatar,
   Button,
   Container,
+  Divider,
+  Link,
   Typography
 } from "@material-ui/core";
 import { LockOutlined as LockIcon } from "@material-ui/icons";
@@ -31,29 +33,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main
   },
-  button: { margin: theme.spacing(3, 0, 2) },
-  textWithLineBehind: {
-    width: "100%",
-    position: "relative",
-    textAlign: "center",
-    "&::before": {
-      content: '""',
-      display: "block",
-      borderTop: `solid 2px ${theme.palette.grey[700]}`,
-      width: "100%",
-      height: "2px",
-      position: "absolute",
-      top: "50%",
-      zIndex: "0"
-    },
-    "& span": {
-      background: theme.palette.background.default,
-      padding: theme.spacing(0, 2),
-      position: "relative",
-      zIndex: "1",
-      textTransform: "uppercase"
-    }
-  }
+  button: { margin: theme.spacing(3, 0, 2) }
 }));
 
 export default function LoginAndRegisterPage() {
@@ -77,9 +57,7 @@ export default function LoginAndRegisterPage() {
         ) : (
           <SignUp toggleSignIn={handleIsSignIn} />
         )}
-        <Typography className={classes.textWithLineBehind}>
-          <span>or</span>
-        </Typography>
+        <Typography align="center">OR</Typography>
         <Button
           variant="outlined"
           onClick={() => dispatch(signInWithGoogle())}
@@ -88,7 +66,31 @@ export default function LoginAndRegisterPage() {
         >
           Sign In With Google
         </Button>
+        <Divider />
+        {isSignIn ? (
+          <Link
+            variant="body2"
+            href="#"
+            align="center"
+            className={classes.link}
+            onClick={handleIsSignIn}
+          >
+            Don't have an account? Sign Up
+          </Link>
+        ) : (
+          <Link
+            variant="body2"
+            href="#"
+            align="center"
+            className={classes.link}
+            onClick={handleIsSignIn}
+          >
+            Already have an account? Sign in
+          </Link>
+        )}
+        <Divider />
         <Copyright />
+        <Divider />
       </div>
     </Container>
   );
