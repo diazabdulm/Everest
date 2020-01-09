@@ -9,15 +9,9 @@ import {
 } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 
+import useStyles from "./avatar.styles";
 import getInitials from "../../common/getInitials";
-
 import { selectDisplayName, signOut } from "../../redux/userSlice";
-
-const useStyles = makeStyles(theme => ({
-  circle: {
-    background: theme.palette.primary.light
-  }
-}));
 
 export default function Avatar() {
   const classes = useStyles();

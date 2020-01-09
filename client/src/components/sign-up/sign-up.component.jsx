@@ -10,15 +10,7 @@ import {
 
 import { signUp } from "../../redux/userSlice";
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    marginTop: theme.spacing(3)
-  },
-  link: {
-    display: "block",
-    margin: theme.spacing(3, 0)
-  }
-}));
+import useStyles from "./sign-up.styles";
 
 const SignUp = ({ toggleSignIn }) => {
   const [userCredentials, setCredentials] = useState({

@@ -11,30 +11,12 @@ import {
 } from "@material-ui/core";
 import { MenuRounded, DeleteForever } from "@material-ui/icons";
 
-import { DRAWER_WIDTH } from "../../constants/misc";
-
 import {
   deleteProject,
   selectCurrentProjectName
 } from "../../redux/projectsSlice";
 
-const useStyles = makeStyles(theme => ({
-  appBar: {
-    boxShadow: "none",
-    [theme.breakpoints.up("sm")]: {
-      width: `calc(100% - ${DRAWER_WIDTH}px)`,
-      marginLeft: DRAWER_WIDTH
-    }
-  },
-  menu: {
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  },
-  title: {
-    flexGrow: 1
-  }
-}));
+import useStyles from "./project-header.styles";
 
 const getCurrentProjectName = (state, projectId, filter) => {
   switch (filter) {

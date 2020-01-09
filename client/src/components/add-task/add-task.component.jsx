@@ -3,16 +3,9 @@ import { useParams } from "react-router-dom";
 import { makeStyles, TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addTask } from "../../redux/tasksSlice";
+import useStyles from "./add-task.styles";
 
-const useStyles = makeStyles(theme => ({
-  textField: {
-    marginBottom: theme.spacing(2)
-  },
-  input: {
-    padding: theme.spacing(2)
-  }
-}));
+import { addTask } from "../../redux/tasksSlice";
 
 /* 
 	if currently selected filter belongs to a user-made project,

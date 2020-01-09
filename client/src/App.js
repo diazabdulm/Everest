@@ -6,8 +6,8 @@ import { checkUserSession } from "./redux/userSlice";
 
 import PrivateRoute from "./components/private-route/private-route.component";
 
-import TasksPage from "./pages/Tasks";
-import LoginAndRegisterPage from "./pages/LoginAndRegister";
+import TasksPage from "./pages/tasks/tasks.component";
+import LoginAndRegisterPage from "./pages/login-and-register/login-and-register.component";
 
 export default function App() {
   const dispatch = useDispatch();

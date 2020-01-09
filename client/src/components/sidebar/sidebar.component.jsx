@@ -7,23 +7,9 @@ import {
   SwipeableDrawer
 } from "@material-ui/core";
 
-import { DRAWER_WIDTH, iOS } from "../../constants/misc";
+import { iOS } from "../../constants/misc";
 
 import { default as CustomDrawer } from "../drawer/drawer.component";
-
-const useStyles = makeStyles(theme => ({
-  drawer: {
-    background: theme.palette.grey.A400,
-    [theme.breakpoints.up("sm")]: {
-      width: DRAWER_WIDTH,
-      flexShrink: 0
-    }
-  },
-  drawerPaper: {
-    background: theme.palette.grey[200],
-    width: DRAWER_WIDTH
-  }
-}));
 
 const Sidebar = ({ drawerOpen, toggleDrawer }) => {
   const classes = useStyles();

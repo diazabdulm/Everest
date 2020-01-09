@@ -12,29 +12,15 @@ import {
 } from "@material-ui/core";
 import { LockOutlined as LockIcon } from "@material-ui/icons";
 
-import { selectCurrentUser } from "../redux/userSlice";
+import { selectCurrentUser } from "../../redux/userSlice";
 
-import SignIn from "../components/sign-in/sign-in.component";
-import SignUp from "../components/sign-up/sign-up.component";
-import Copyright from "../components/copyright/copyright.component";
+import SignIn from "../../components/sign-in/sign-in.component";
+import SignUp from "../../components/sign-up/sign-up.component";
+import Copyright from "../../components/copyright/copyright.component";
 
-import { signInWithGoogle } from "../redux/userSlice";
+import { signInWithGoogle } from "../../redux/userSlice";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    width: "100%",
-    display: "flex",
-    flexFlow: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: theme.spacing(8, 0)
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
-  },
-  button: { margin: theme.spacing(3, 0, 2) }
-}));
+import useStyles from "./login-and-register.styles";
 
 export default function LoginAndRegisterPage() {
   const classes = useStyles();

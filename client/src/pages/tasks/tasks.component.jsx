@@ -2,25 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
-import { subscribeToUserTasks } from "../redux/tasksSlice";
-import { subscribeToUserProjects } from "../redux/projectsSlice";
+import { subscribeToUserTasks } from "../../redux/tasksSlice";
+import { subscribeToUserProjects } from "../../redux/projectsSlice";
 
 import AddTask from "../components/AddTask";
-import TaskList from "../components/task-list/task-list.component";
-import ProjectHeader from "../components/project-header/project-header.component";
+import TaskList from "../../components/task-list/task-list.component";
+import ProjectHeader from "../../components/project-header/project-header.component";
 import Sidebar from "../components/sidebar/sidebar.componentt";
 
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex"
-  },
-  main: {
-    flexGrow: 1,
-    paddingTop: 0,
-    padding: theme.spacing(3)
-  },
-  toolbar: theme.mixins.toolbar
-}));
+import useStyles from "./tasks.styles";
 
 export default function TasksPage() {
   const classes = useStyles();
