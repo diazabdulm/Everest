@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   makeStyles,
@@ -8,7 +8,7 @@ import {
   Link
 } from "@material-ui/core";
 
-import { signInWithEmail } from "../redux/userSlice";
+import { signUp } from "../../redux/userSlice";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -20,15 +20,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignIn = ({ toggleSignIn }) => {
+const SignUp = ({ toggleSignIn }) => {
   const [userCredentials, setCredentials] = useState({
+    displayName: "",
     email: "",
-    password: ""
+    password: "",
+    confirmPassword: ""
   });
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { email, password } = userCredentials;
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const handleChange = event => {
     const { value, name } = event.target;
@@ -37,20 +39,32 @@ const SignIn = ({ toggleSignIn }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(signInWithEmail(email, password));
-  };
 
-  useEffect(() => {
-    setCredentials({
-      email: "testaccount@example.com",
-      password: "testpassword"
-    });
-  }, []);
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    dispatch(signUp(displayName, email, password));
+  };
 
   return (
     <Fragment>
-      <Typography variant="h5">Sign In</Typography>
+      <Typography variant="h5">Sign Up</Typography>
       <form onSubmit={handleSubmit}>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="name"
+          label="Name"
+          name="displayName"
+          autoComplete="name"
+          inputProps={{ spellCheck: "false" }}
+          onChange={handleChange}
+          value={displayName}
+        />
         <TextField
           variant="outlined"
           margin="normal"
@@ -62,8 +76,8 @@ const SignIn = ({ toggleSignIn }) => {
           name="email"
           autoComplete="email"
           inputProps={{ spellCheck: "false" }}
-          value={email}
           onChange={handleChange}
+          value={email}
         />
         <TextField
           variant="outlined"
@@ -74,9 +88,22 @@ const SignIn = ({ toggleSignIn }) => {
           label="Password"
           name="password"
           type="password"
-          autoComplete="current-password"
-          value={password}
+          autoComplete="new-password"
           onChange={handleChange}
+          value={password}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="confirm-password"
+          label="Confirm Password"
+          name="confirmPassword"
+          type="password"
+          autoComplete="new-password"
+          onChange={handleChange}
+          value={confirmPassword}
         />
         <Button
           variant="contained"
@@ -85,11 +112,11 @@ const SignIn = ({ toggleSignIn }) => {
           fullWidth
           className={classes.button}
         >
-          Sign In
+          Sign Up
         </Button>
       </form>
     </Fragment>
   );
 };
 
-export default SignIn;
+export default SignUp;

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
-import { selectCurrentUser } from "../redux/userSlice";
+import { selectCurrentUser } from "../../redux/userSlice";
 
 const PrivateRoute = ({ component: Component, ...componentProps }) => {
   const auth = useSelector(selectCurrentUser);

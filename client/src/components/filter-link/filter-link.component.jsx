@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { ListRounded } from "@material-ui/icons";
 
-import { setVisibilityFilter } from "../redux/visibilityFilterSlice";
+import { setVisibilityFilter } from "../../redux/visibilityFilterSlice";
 
 export default function FilterLink({
   filter,

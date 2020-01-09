@@ -9,9 +9,9 @@ import {
 } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 
-import getInitials from "../common/getInitials";
+import getInitials from "../../common/getInitials";
 
-import { selectDisplayName, signOut } from "../redux/userSlice";
+import { selectDisplayName, signOut } from "../../redux/userSlice";
 
 const useStyles = makeStyles(theme => ({
   circle: {

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { List } from "@material-ui/core";
 
-import Task from "./Task";
+import Task from "../task/task.component";
 
 const getVisibleTasks = (currentProjectId, tasks, filter) => {
 	switch (filter) {

@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { checkUserSession } from "../redux/userSlice";
+import { checkUserSession } from "./redux/userSlice";
 
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./components/private-route/private-route.component";
 
-import TasksPage from "../pages/Tasks";
-import LoginAndRegisterPage from "../pages/LoginAndRegister";
+import TasksPage from "./pages/Tasks";
+import LoginAndRegisterPage from "./pages/LoginAndRegister";
 
 export default function App() {
   const dispatch = useDispatch();

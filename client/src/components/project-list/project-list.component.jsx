@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import FilterLink from "./FilterLink";
+import FilterLink from "../filter-link/filter-link.component";
 
 export default function ProjectList() {
   const projects = useSelector(state => state.projects);

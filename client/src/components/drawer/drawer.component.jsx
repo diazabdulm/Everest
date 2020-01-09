@@ -15,9 +15,9 @@ import {
 	InboxRounded
 } from "@material-ui/icons";
 
-import Avatar from "./Avatar";
-import FilterLink from "./FilterLink";
-import ProjectList from "./ProjectList";
+import Avatar from "../avatar/avatar.component";
+import FilterLink from "../filter-link/filter-link.component";
+import ProjectList from "../project-list/project-list.component";
 
 import { default as AddProjectDialog } from "./AddProject";
 

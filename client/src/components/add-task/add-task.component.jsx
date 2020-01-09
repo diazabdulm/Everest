@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { makeStyles, TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addTask } from "../redux/tasksSlice";
+import { addTask } from "../../redux/tasksSlice";
 
 const useStyles = makeStyles(theme => ({
   textField: {

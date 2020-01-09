@@ -7,9 +7,9 @@ import {
   SwipeableDrawer
 } from "@material-ui/core";
 
-import { DRAWER_WIDTH, iOS } from "../constants/misc";
+import { DRAWER_WIDTH, iOS } from "../../constants/misc";
 
-import { default as CustomDrawer } from "./Drawer";
+import { default as CustomDrawer } from "../drawer/drawer.component";
 
 const useStyles = makeStyles(theme => ({
   drawer: {

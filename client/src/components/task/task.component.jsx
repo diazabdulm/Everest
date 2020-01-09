@@ -7,7 +7,7 @@ import {
 	ListItemText
 } from "@material-ui/core";
 
-import { deleteTask } from "../redux/tasksSlice";
+import { deleteTask } from "../../redux/tasksSlice";
 
 export default function Task({ id, name }) {
 	const dispatch = useDispatch();

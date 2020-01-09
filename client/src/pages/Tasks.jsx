@@ -6,9 +6,9 @@ import { subscribeToUserTasks } from "../redux/tasksSlice";
 import { subscribeToUserProjects } from "../redux/projectsSlice";
 
 import AddTask from "../components/AddTask";
-import TaskList from "../components/TaskList";
-import ProjectHeader from "../components/ProjectHeader";
-import Sidebar from "../components/Sidebar";
+import TaskList from "../components/task-list/task-list.component";
+import ProjectHeader from "../components/project-header/project-header.component";
+import Sidebar from "../components/sidebar/sidebar.componentt";
 
 const useStyles = makeStyles(theme => ({
   container: {

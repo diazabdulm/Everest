@@ -11,12 +11,12 @@ import {
 } from "@material-ui/core";
 import { MenuRounded, DeleteForever } from "@material-ui/icons";
 
-import { DRAWER_WIDTH } from "../constants/misc";
+import { DRAWER_WIDTH } from "../../constants/misc";
 
 import {
   deleteProject,
   selectCurrentProjectName
-} from "../redux/projectsSlice";
+} from "../../redux/projectsSlice";
 
 const useStyles = makeStyles(theme => ({
   appBar: {

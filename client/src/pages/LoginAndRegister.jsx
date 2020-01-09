@@ -14,9 +14,9 @@ import { LockOutlined as LockIcon } from "@material-ui/icons";
 
 import { selectCurrentUser } from "../redux/userSlice";
 
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
-import Copyright from "../components/Copyright";
+import SignIn from "../components/sign-in/sign-in.component";
+import SignUp from "../components/sign-up/sign-up.component";
+import Copyright from "../components/copyright/copyright.component";
 
 import { signInWithGoogle } from "../redux/userSlice";
 
