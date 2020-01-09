@@ -7,47 +7,33 @@ import useStyles from "./add-task.styles";
 
 import { addTask } from "../../redux/tasksSlice";
 
-/* 
-	if currently selected filter belongs to a user-made project,
-	add tasks to it. Otherwise add to inbox project
-*/
 const setCurrentProject = (projectId, filter) => {
-  switch (filter) {
-    case "SHOW_USER_PROJECT":
-      return projectId;
-    default:
-      return "inbox";
-  }
+  if (filter === "SHOW_USER_PROJECT") return projectId;
+  return "inbox";
 };
 
 export default function AddTask() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const { projectId } = useParams();
-  const [formValue, setFormValue] = useState("");
   const currentProject = useSelector(state =>
     setCurrentProject(projectId, state.visibilityFilter)
   );
 
-  const handleFormValueChange = event => setFormValue(event.target.value);
+  const [formValue, setFormValue] = useState("");
 
-  const handleFormSubmit = event => {
+  const handleFormSubmit = () => {
     if (!formValue.trim()) return;
 
-    if (event.key === "Enter") {
-      dispatch(addTask({ name: formValue, projectId: currentProject }));
-      setFormValue("");
-    }
+    dispatch(addTask({ name: formValue, projectId: currentProject }));
+    setFormValue("");
   };
 
   return (
     <TextField
+      fullWidth
       variant="filled"
       placeholder="Add a task, press Enter to save"
-      fullWidth
-      onChange={handleFormValueChange}
-      onKeyPress={handleFormSubmit}
       value={formValue}
       InputProps={{
         disableUnderline: true,
@@ -56,6 +42,8 @@ export default function AddTask() {
         }
       }}
       className={classes.textField}
+      onChange={event => setFormValue(event.target.value)}
+      onKeyPress={event => event.key === "Enter" && handleFormSubmit()}
     />
   );
 }
