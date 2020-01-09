@@ -1,15 +1,11 @@
 import React from "react";
-import {
-  makeStyles,
-  useTheme,
-  Drawer,
-  Hidden,
-  SwipeableDrawer
-} from "@material-ui/core";
+import { useTheme, Drawer, Hidden, SwipeableDrawer } from "@material-ui/core";
 
 import { iOS } from "../../constants/misc";
 
 import { default as CustomDrawer } from "../drawer/drawer.component";
+
+import useStyles from "./sidebar.styles";
 
 const Sidebar = ({ drawerOpen, toggleDrawer }) => {
   const classes = useStyles();

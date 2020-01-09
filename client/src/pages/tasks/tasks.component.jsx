@@ -5,10 +5,10 @@ import { makeStyles } from "@material-ui/core";
 import { subscribeToUserTasks } from "../../redux/tasksSlice";
 import { subscribeToUserProjects } from "../../redux/projectsSlice";
 
-import AddTask from "../components/AddTask";
+import AddTask from "../../components/add-task/add-task.component";
 import TaskList from "../../components/task-list/task-list.component";
 import ProjectHeader from "../../components/project-header/project-header.component";
-import Sidebar from "../components/sidebar/sidebar.componentt";
+import Sidebar from "../../components/sidebar/sidebar.component";
 
 import useStyles from "./tasks.styles";
 
