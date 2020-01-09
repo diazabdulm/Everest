@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { makeStyles, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 
 import useStyles from "./add-task.styles";

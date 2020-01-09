@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core";
 
 import { subscribeToUserTasks } from "../../redux/tasksSlice";
 import { subscribeToUserProjects } from "../../redux/projectsSlice";

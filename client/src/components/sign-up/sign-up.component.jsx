@@ -1,12 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  makeStyles,
-  Typography,
-  TextField,
-  Button,
-  Link
-} from "@material-ui/core";
+import { Typography, TextField, Button, Link } from "@material-ui/core";
 
 import { signUp } from "../../redux/userSlice";
 
