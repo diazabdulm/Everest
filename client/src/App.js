@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { checkUserSession } from "./redux/userSlice";
@@ -17,10 +17,12 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <Switch>
-      <Route exact path="/login" component={LoginAndRegisterPage} />
-      <PrivateRoute exact path="/:projectId" component={TasksPage} />
-      <Redirect to="/all" />
-    </Switch>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/login" component={LoginAndRegisterPage} />
+        <PrivateRoute exact path="/:projectId" component={TasksPage} />
+        <Redirect to="/all" />
+      </Switch>
+    </BrowserRouter>
   );
 }
